@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.domain.entities.pedido;
 
-import br.com.fiap.techchallenge.infra.controllers.pedido.ItemDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ItemDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;

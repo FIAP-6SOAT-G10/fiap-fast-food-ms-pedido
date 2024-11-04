@@ -1,8 +1,8 @@
 package br.com.fiap.techchallenge.infra.mapper.pagamento;
 
 import br.com.fiap.techchallenge.domain.entities.pagamento.EventoPagemento;
-import br.com.fiap.techchallenge.infra.controllers.pagamento.DadosPagamentoDTO;
-import br.com.fiap.techchallenge.infra.controllers.pagamento.EventoPagamentoDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.DadosPagamentoDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.EventoPagamentoDTO;
 
 public class PagamentoMapper {
 

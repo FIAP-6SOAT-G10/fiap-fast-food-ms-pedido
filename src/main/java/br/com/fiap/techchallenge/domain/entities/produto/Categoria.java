@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.domain.entities.produto;
 
-import br.com.fiap.techchallenge.infra.controllers.categoria.CategoriaDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.CategoriaDTO;
 
 import java.util.List;
 

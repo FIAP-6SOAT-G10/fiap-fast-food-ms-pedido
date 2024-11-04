@@ -5,10 +5,11 @@ import br.com.fiap.techchallenge.domain.entities.pagamento.StatusPagamento;
 import br.com.fiap.techchallenge.domain.entities.pedido.*;
 import br.com.fiap.techchallenge.domain.entities.produto.CategoriaEnum;
 import br.com.fiap.techchallenge.domain.entities.produto.Produto;
-import br.com.fiap.techchallenge.infra.controllers.pedido.PedidoDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.PedidoDTO;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.PedidoEntity;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.entities.*;
 import br.com.fiap.techchallenge.infra.mapper.cliente.ClienteMapper;
 import br.com.fiap.techchallenge.infra.mapper.produtopedido.ProdutoPedidoMapper;
-import br.com.fiap.techchallenge.infra.persistence.entities.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

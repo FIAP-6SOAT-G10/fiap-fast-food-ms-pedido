@@ -21,6 +21,4 @@ public interface IPedidoRepository {
 
     List<Pedido> listarPedidosPorStatus(String status);
 
-    Pedido realizarCheckout(Long id) throws InterruptedException;
-
 }

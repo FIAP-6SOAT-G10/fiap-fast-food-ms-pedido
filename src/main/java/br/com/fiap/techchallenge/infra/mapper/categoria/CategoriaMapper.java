@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.infra.mapper.categoria;
 
 import br.com.fiap.techchallenge.domain.entities.produto.CategoriaEnum;
-import br.com.fiap.techchallenge.infra.persistence.entities.CategoriaEntity;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.entities.CategoriaEntity;
 
 public class CategoriaMapper {
 

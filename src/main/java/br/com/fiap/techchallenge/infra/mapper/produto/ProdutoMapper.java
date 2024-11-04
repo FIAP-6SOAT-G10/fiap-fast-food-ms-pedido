@@ -2,8 +2,8 @@ package br.com.fiap.techchallenge.infra.mapper.produto;
 
 import br.com.fiap.techchallenge.domain.entities.produto.Categoria;
 import br.com.fiap.techchallenge.domain.entities.produto.Produto;
-import br.com.fiap.techchallenge.infra.persistence.entities.CategoriaEntity;
-import br.com.fiap.techchallenge.infra.persistence.entities.ProdutoEntity;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.entities.CategoriaEntity;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.entities.ProdutoEntity;
 
 import java.util.List;
 

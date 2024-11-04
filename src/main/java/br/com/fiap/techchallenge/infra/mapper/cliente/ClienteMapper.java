@@ -1,10 +1,8 @@
 package br.com.fiap.techchallenge.infra.mapper.cliente;
 
 import br.com.fiap.techchallenge.domain.entities.cliente.Cliente;
-import br.com.fiap.techchallenge.domain.entities.pedido.Pedido;
-import br.com.fiap.techchallenge.infra.controllers.cliente.ClienteDTO;
-import br.com.fiap.techchallenge.infra.mapper.pedido.PedidoMapper;
-import br.com.fiap.techchallenge.infra.persistence.entities.ClienteEntity;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ClienteDTO;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.entities.ClienteEntity;
 
 import java.util.List;
 

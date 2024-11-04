@@ -8,16 +8,20 @@ import br.com.fiap.techchallenge.domain.entities.pagamento.StatusPagamentoEnum;
 import br.com.fiap.techchallenge.domain.entities.pedido.Pedido;
 import br.com.fiap.techchallenge.domain.entities.pedido.StatusPedido;
 import br.com.fiap.techchallenge.domain.entities.pedido.StatusPedidoEnum;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.PedidoEntity;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.entities.ClienteEntity;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.entities.ProdutoPedidoEntity;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.entities.StatusPagamentoEntity;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.entities.StatusPedidoEntity;
 import br.com.fiap.techchallenge.infra.exception.BaseException;
 import br.com.fiap.techchallenge.infra.exception.ClienteException;
 import br.com.fiap.techchallenge.infra.exception.PedidoException;
 import br.com.fiap.techchallenge.infra.mapper.cliente.ClienteMapper;
 import br.com.fiap.techchallenge.infra.mapper.pedido.PedidoMapper;
 import br.com.fiap.techchallenge.infra.mapper.produtopedido.ProdutoPedidoMapper;
-import br.com.fiap.techchallenge.infra.persistence.ClienteEntityRepository;
-import br.com.fiap.techchallenge.infra.persistence.PedidoEntityRepository;
-import br.com.fiap.techchallenge.infra.persistence.ProdutoPedidoRepository;
-import br.com.fiap.techchallenge.infra.persistence.entities.*;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.ClienteEntityRepository;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.PedidoEntityRepository;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.remover.ProdutoPedidoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 
@@ -154,21 +158,4 @@ public class PedidoRepository implements IPedidoRepository {
         return pedidos.stream().filter(byStatus).toList();
     }
 
-    @Override
-    public Pedido realizarCheckout(Long id) throws BaseException, InterruptedException {
-        log.info("realizarCheckout");
-
-        TimeUnit.SECONDS.sleep(5);
-
-        Optional<PedidoEntity> pedidoOptional = pedidoEntityRepository.loadPedidoById(id);
-        if (pedidoOptional.isEmpty()) {
-            throw new PedidoException(ErrosEnum.PEDIDO_CODIGO_IDENTIFICADOR_INVALIDO);
-        }
-
-        PedidoEntity pedidoEntity = pedidoOptional.get();
-        pedidoEntity.setStatus(new StatusPedidoEntity(StatusPedidoEnum.RECEBIDO.getStatus()));
-        pedidoEntity.setStatusPagamento(new StatusPagamentoEntity(StatusPagamentoEnum.PAGO.getStatus()));
-
-        return pedidoMapper.fromEntityToDomain(pedidoEntityRepository.saveAndFlush(pedidoEntity));
-    }
 }
