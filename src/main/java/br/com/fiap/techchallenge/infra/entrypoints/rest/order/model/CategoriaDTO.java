@@ -1,11 +1,8 @@
 package br.com.fiap.techchallenge.infra.entrypoints.rest.order.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
 
-@Data
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class CategoriaDTO {
     @Schema(description = "O nome da categoria que será criado.", example = "Bebida")
     private String nome;
@@ -19,6 +16,22 @@ public class CategoriaDTO {
 
     public CategoriaDTO(String nome, String descricao) {
         this(nome);
+        this.descricao = descricao;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 }

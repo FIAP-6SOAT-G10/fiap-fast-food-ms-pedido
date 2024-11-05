@@ -2,11 +2,6 @@ package br.com.fiap.techchallenge.domain.entities.pedido;
 
 import br.com.fiap.techchallenge.domain.entities.cliente.Cliente;
 import br.com.fiap.techchallenge.domain.entities.pagamento.StatusPagamento;
-import br.com.fiap.techchallenge.infra.deserializers.StatusPagamentoDeserializer;
-import br.com.fiap.techchallenge.infra.deserializers.StatusPedidoDeserializer;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,12 +12,12 @@ import java.util.List;
 public class Pedido {
     private Long id;
     private Cliente cliente;
-    private StatusPedido status;
+    private String status;
     private BigDecimal valor;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataFinalizacao;
     private LocalDateTime dataCancelamento;
-    private StatusPagamento statusPagamento;
+    private String statusPagamento;
     private List<ProdutoPedido> produtoPedidos;
     private Item items;
 
@@ -53,12 +48,12 @@ public class Pedido {
         this.produtoPedidos = produtoPedidos;
     }
 
-    public Pedido(Long id, Cliente cliente, StatusPedido status, BigDecimal valor, LocalDateTime dataCriacao, LocalDateTime dataFinalizacao, LocalDateTime dataCancelamento, StatusPagamento statusPagamento, List<ProdutoPedido> produtoPedidos, Item items) {
+    public Pedido(Long id, Cliente cliente, String status, BigDecimal valor, LocalDateTime dataCriacao, LocalDateTime dataFinalizacao, LocalDateTime dataCancelamento, String statusPagamento, List<ProdutoPedido> produtoPedidos, Item items) {
         this(cliente, status, valor, dataCriacao, dataFinalizacao, dataCancelamento, statusPagamento, produtoPedidos, items);
         this.id = id;
     }
 
-    public Pedido(Cliente cliente, StatusPedido status, BigDecimal valor, LocalDateTime dataCriacao, LocalDateTime dataFinalizacao, LocalDateTime dataCancelamento, StatusPagamento statusPagamento, List<ProdutoPedido> produtoPedidos, Item items) {
+    public Pedido(Cliente cliente, String status, BigDecimal valor, LocalDateTime dataCriacao, LocalDateTime dataFinalizacao, LocalDateTime dataCancelamento, String statusPagamento, List<ProdutoPedido> produtoPedidos, Item items) {
         if (status == null) {
             throw new IllegalArgumentException("Status é um campo obrigatório no cadastro de novos pedidos.");
         }
@@ -98,59 +93,84 @@ public class Pedido {
         return id;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Cliente getCliente() {
         return cliente;
     }
 
-    public void setStatus(StatusPedido status) {
-        this.status = status;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public StatusPedido getStatus() {
+    public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public BigDecimal getValor() {
         return valor;
     }
 
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataFinalizacao(LocalDateTime dataFinalizacao) {
-        this.dataFinalizacao = dataFinalizacao;
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 
     public LocalDateTime getDataFinalizacao() {
         return dataFinalizacao;
     }
 
+    public void setDataFinalizacao(LocalDateTime dataFinalizacao) {
+        this.dataFinalizacao = dataFinalizacao;
+    }
+
     public LocalDateTime getDataCancelamento() {
         return dataCancelamento;
     }
 
-    public void setStatusPagamento(StatusPagamento statusPagamento) {
-        this.statusPagamento = statusPagamento;
+    public void setDataCancelamento(LocalDateTime dataCancelamento) {
+        this.dataCancelamento = dataCancelamento;
     }
 
-    public StatusPagamento getStatusPagamento() {
+    public String getStatusPagamento() {
         return statusPagamento;
+    }
+
+    public void setStatusPagamento(String statusPagamento) {
+        this.statusPagamento = statusPagamento;
     }
 
     public List<ProdutoPedido> getProdutoPedidos() {
         return produtoPedidos;
     }
 
+    public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
+        this.produtoPedidos = produtoPedidos;
+    }
+
     public Item getItems() {
         return items;
+    }
+
+    public void setItems(Item items) {
+        this.items = items;
     }
 
     public void totalizar(BigDecimal subtotal) {
         this.valor = this.valor.add(subtotal);
     }
+
 }

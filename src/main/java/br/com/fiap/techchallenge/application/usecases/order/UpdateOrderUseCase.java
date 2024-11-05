@@ -124,30 +124,30 @@ public class UpdateOrderUseCase {
     }
 
     private void validarMudancaDeStatus(Pedido atual, Pedido novo) {
-        log.info("Validando mudança de status do pedido.");
-        StatusPedidoEnum statusAtual = StatusPedidoEnum.byId(atual.getStatus().getId());
-        StatusPedidoEnum statusNovo = StatusPedidoEnum.byId(novo.getStatus().getId());
-
-        IMudancaStatusPedido mudancaStatusPedido = new MudancaStatusPedidoRecebido(
-                new MudancaStatusPedidoEmPreparacao(
-                        new MudancaStatusPedidoPronto(
-                                new MudancaStatusPedidoFinalizado()
-                        )
-                )
-        );
-
-        mudancaStatusPedido.validarMudancaDeStatus(statusAtual, statusNovo);
+//        log.info("Validando mudança de status do pedido.");
+//        StatusPedidoEnum statusAtual = StatusPedidoEnum.byId(atual.getStatus().getId());
+//        StatusPedidoEnum statusNovo = StatusPedidoEnum.byId(novo.getStatus().getId());
+//
+//        IMudancaStatusPedido mudancaStatusPedido = new MudancaStatusPedidoRecebido(
+//                new MudancaStatusPedidoEmPreparacao(
+//                        new MudancaStatusPedidoPronto(
+//                                new MudancaStatusPedidoFinalizado()
+//                        )
+//                )
+//        );
+//
+//        mudancaStatusPedido.validarMudancaDeStatus(statusAtual, statusNovo);
     }
 
     private void validarMudancaDePagamento(Pedido atual, Pedido novo) {
-        log.info("Validando mudança de status de pagamento do pedido.");
-        PagamentoPedidoEnum statusPagamentoAtual = PagamentoPedidoEnum.byId(atual.getStatusPagamento().getId());
-        PagamentoPedidoEnum statusPagamentoNovo = PagamentoPedidoEnum.byId(novo.getStatusPagamento().getId());
-
-        IMudancaPagamentoPedido mudancaPagamentoPedido = new MudancaPagamentoPedidoPago(
-                new MudancaPagamentoPedidoRecusado()
-        );
-
-        mudancaPagamentoPedido.validarMudancaDePagamento(statusPagamentoAtual, statusPagamentoNovo);
+//        log.info("Validando mudança de status de pagamento do pedido.");
+//        PagamentoPedidoEnum statusPagamentoAtual = PagamentoPedidoEnum.byId(atual.getStatusPagamento().getId());
+//        PagamentoPedidoEnum statusPagamentoNovo = PagamentoPedidoEnum.byId(novo.getStatusPagamento().getId());
+//
+//        IMudancaPagamentoPedido mudancaPagamentoPedido = new MudancaPagamentoPedidoPago(
+//                new MudancaPagamentoPedidoRecusado()
+//        );
+//
+//        mudancaPagamentoPedido.validarMudancaDePagamento(statusPagamentoAtual, statusPagamentoNovo);
     }
 }
