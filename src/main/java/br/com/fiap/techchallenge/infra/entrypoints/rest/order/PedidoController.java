@@ -35,17 +35,13 @@ public class PedidoController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Pedido>> getAllOrders() {
-//        log.info("Buscando todos os pedidos.");
-        List<Pedido> orders = getOrderUseCase.listarPedidos();
-        if (orders.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(orders);
+        log.info("Buscando todos os pedidos.");
+        return ResponseEntity.ok(getOrderUseCase.listarPedidos());
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Pedido> findById(@PathVariable("id") Long id) {
-//        log.info("Buscando pedido por id.");
+        log.info("Buscando pedido por id.");
         Pedido order = getOrderUseCase.buscarPedidoPorId(id);
         if (order == null) {
             return ResponseEntity.notFound().build();
@@ -55,7 +51,7 @@ public class PedidoController {
 
     @GetMapping(path = "/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Pedido>> findByStatus(@PathVariable("status") String status) {
-//        log.info("Buscando pedidos pelo status.");
+        log.info("Buscando pedidos pelo status.");
         List<Pedido> orders = getOrderUseCase.listarPedidosPorStatus(status);
         if (orders == null) {
             return ResponseEntity.notFound().build();

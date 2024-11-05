@@ -1,7 +1,6 @@
 package br.com.fiap.techchallenge.domain.entities.pedido;
 
 import br.com.fiap.techchallenge.domain.entities.cliente.Cliente;
-import br.com.fiap.techchallenge.domain.entities.pagamento.StatusPagamento;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,6 +9,7 @@ import java.util.List;
 
 
 public class Pedido {
+
     private Long id;
     private Cliente cliente;
     private String status;

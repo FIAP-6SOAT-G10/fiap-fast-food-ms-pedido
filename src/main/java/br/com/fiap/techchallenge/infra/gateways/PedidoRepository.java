@@ -99,9 +99,7 @@ public class PedidoRepository implements IPedidoRepository {
 
     @Override
     public List<Pedido> listarPedidos() {
-//        log.info("listarPedidos");
-        List<PedidoEntity> listPedidoEntity = removerPedidosFinalizadosCancelados(obterPedidosOrdenadosPeloStatus());
-
+        List<PedidoEntity> listPedidoEntity = pedidoEntityRepository.findAll(Sort.by("dataCriacao").descending());
         return pedidoMapper.fromListEntityToListDTO(listPedidoEntity);
     }
 
