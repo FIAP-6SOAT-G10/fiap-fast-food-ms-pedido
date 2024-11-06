@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.application.usecases.order;
 
 import br.com.fiap.techchallenge.application.gateways.IPedidoRepository;
 import br.com.fiap.techchallenge.domain.entities.pagamento.StatusPagamento;
-import br.com.fiap.techchallenge.domain.entities.pedido.Pedido;
+import br.com.fiap.techchallenge.domain.entities.pedido.Order;
 
 import java.util.List;
 
@@ -15,19 +15,19 @@ public class GetOrderUseCase {
         this.pedidoRepository = pedidoRepository;
     }
 
-    public Pedido buscarPedidoPorId(Long id) {
+    public Order buscarPedidoPorId(String id) {
         return pedidoRepository.buscarPedidoPorId(id);
     }
 
-    public List<Pedido> listarPedidos() {
+    public List<Order> listarPedidos() {
         return pedidoRepository.listarPedidos();
     }
 
-    public List<Pedido> listarPedidosPorStatus(String status) {
+    public List<Order> listarPedidosPorStatus(String status) {
         return pedidoRepository.listarPedidosPorStatus(status);
     }
 
-    public StatusPagamento consultarStatusPagamentoDoPedido(Long id) {
+    public StatusPagamento consultarStatusPagamentoDoPedido(String id) {
         return pedidoRepository.consultarStatusPagamentoDoPedido(id);
     }
 

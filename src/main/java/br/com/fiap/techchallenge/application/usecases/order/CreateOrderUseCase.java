@@ -4,7 +4,7 @@ import br.com.fiap.techchallenge.application.gateways.IPedidoRepository;
 import br.com.fiap.techchallenge.application.gateways.IProdutoRepository;
 import br.com.fiap.techchallenge.domain.entities.pedido.Item;
 import br.com.fiap.techchallenge.domain.entities.pedido.ItemPedido;
-import br.com.fiap.techchallenge.domain.entities.pedido.Pedido;
+import br.com.fiap.techchallenge.domain.entities.pedido.Order;
 import br.com.fiap.techchallenge.domain.entities.pedido.ProdutoPedido;
 import br.com.fiap.techchallenge.domain.entities.produto.Produto;
 import lombok.extern.slf4j.Slf4j;
@@ -29,14 +29,14 @@ public class CreateOrderUseCase {
         this.produtoRepository = produtoRepository;
     }
 
-    public Pedido criarPedido(Pedido pedido) {
+    public Order criarPedido(Order pedido) {
 
-        List<ProdutoPedido> itens = totalizaItensDoPedido(pedido.getItems());
-        BigDecimal subtotal = itens.stream().map(ProdutoPedido::getValorTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+//        List<ProdutoPedido> itens = totalizaItensDoPedido(pedido.getItems());
+//        BigDecimal subtotal = itens.stream().map(ProdutoPedido::getValorTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        pedido.getProdutoPedidos().addAll(itens);
-        pedido.totalizar(subtotal);
-       return pedidoRepository.criarPedido(pedido);
+//        pedido.getProdutoPedidos().addAll(itens);
+//        pedido.totalizar(subtotal);
+       return pedidoRepository.createOrder(pedido);
     }
 
     private List<ProdutoPedido> totalizaItensDoPedido(Item item) {

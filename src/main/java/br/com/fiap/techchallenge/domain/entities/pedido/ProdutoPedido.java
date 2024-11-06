@@ -9,7 +9,7 @@ import java.math.BigInteger;
 public class ProdutoPedido {
     private Long id;
     private Produto produto;
-    private Pedido pedido;
+    private Order pedido;
     private BigDecimal valorTotal;
     private BigInteger quantidade;
 
@@ -28,7 +28,7 @@ public class ProdutoPedido {
         this.quantidade = quantidade;
     }
 
-    public ProdutoPedido(Long id, Produto produto, Pedido pedido, BigDecimal valorTotal, BigInteger quantidade) {
+    public ProdutoPedido(Long id, Produto produto, Order pedido, BigDecimal valorTotal, BigInteger quantidade) {
         this.id = id;
         this.produto = produto;
         this.pedido = pedido;
@@ -44,7 +44,7 @@ public class ProdutoPedido {
         return produto;
     }
 
-    public Pedido getPedido() {
+    public Order getPedido() {
         return pedido;
     }
 

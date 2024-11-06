@@ -1,14 +1,10 @@
 package br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface PedidoEntityRepository extends JpaRepository<PedidoEntity, Long> {
+public interface PedidoEntityRepository extends MongoRepository<OrderEntity, String> {
 
 //    @Query(value = "SELECT p FROM PedidoEntity p JOIN FETCH p.produtos WHERE p.id = :id")
 //    Optional<PedidoEntity> loadPedidoById(@Param("id") Long id);

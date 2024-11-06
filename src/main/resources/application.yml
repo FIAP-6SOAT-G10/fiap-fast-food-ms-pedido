@@ -3,17 +3,21 @@ spring:
     active: '@activeProfile@'
   application:
     name: tech-challenge
-  datasource:
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-  jpa:
-    properties:
-      hibernate:
-        default_schema: tech-challenge
-        enable_lazy_load_no_trans: true
-    show-sql: false
-  flyway:
-    schemas: tech-challenge
+  data:
+    mongodb:
+      uri: mongodb://${DB_USERNAME}:${DB_PASSWORD}@localhost:27017/tech-challenge
+      database: tech-challenge
+#  datasource:
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#  jpa:
+#    properties:
+#      hibernate:
+#        default_schema: tech-challenge
+#        enable_lazy_load_no_trans: true
+#    show-sql: false
+#  flyway:
+#    schemas: tech-challenge
 
 server:
   servlet:

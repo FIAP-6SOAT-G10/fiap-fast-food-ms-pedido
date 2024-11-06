@@ -1,13 +1,11 @@
 package br.com.fiap.techchallenge.infra.mapper.pedido;
 
 import br.com.fiap.techchallenge.domain.entities.pedido.*;
-import br.com.fiap.techchallenge.domain.entities.produto.CategoriaEnum;
-import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.PedidoDTO;
-import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.PedidoEntity;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderDTO;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntity;
 import br.com.fiap.techchallenge.infra.mapper.cliente.ClienteMapper;
 import br.com.fiap.techchallenge.infra.mapper.produtopedido.ProdutoPedidoMapper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +15,7 @@ public class PedidoMapper {
     private final ClienteMapper clienteMapper = new ClienteMapper();
     private final ProdutoPedidoMapper produtoPedidoMapper = new ProdutoPedidoMapper();
 
-    public Pedido fromEntityToDomain(PedidoEntity pedidoEntity) {
+    public Order fromEntityToDomain(OrderEntity pedidoEntity) {
 //        Cliente cliente = clienteMapper.fromEntityToDomain(pedidoEntity.getCliente());
 
 //        StatusPedido status = new StatusPedido(pedidoEntity.getStatus().getId());
@@ -41,18 +39,18 @@ public class PedidoMapper {
 //                statusPagamento,
 //                produtosPedidos,
 //                new Item(lanches,bebida,acompanhamento,sobremesa));
-        return new Pedido();
+        return new Order();
     }
 
-    public Pedido fromDTOToDomain(PedidoDTO pedidoDTO) {
+    public Order fromDTOToDomain(OrderDTO orderDTO) {
 //        Cliente cliente = new ClienteMapper().fromDTOToDomain(pedidoDTO.getCliente());
 //        List<ProdutoPedido> produtosPedidos = pedidoDTO.getProdutos();
 //        return new Pedido(cliente, pedidoDTO.getValor(), produtosPedidos);
-        return new Pedido();
+        return new Order();
     }
 
-    public PedidoEntity fromDomainToEntity(Pedido pedido) {
-        PedidoEntity pedidoEntity = new PedidoEntity();
+    public OrderEntity fromDomainToEntity(Order order) {
+        OrderEntity orderEntity = new OrderEntity();
 
 //        if (pedido.getCliente() != null) {
 //            Cliente cliente = pedido.getCliente();
@@ -69,45 +67,45 @@ public class PedidoMapper {
 //        statusPagamentoEntity.setId(statusPagamento.getId());
 //        statusPagamentoEntity.setNome(statusPagamento.getNome());
 
-        pedidoEntity.setId(pedido.getId());
-//        pedidoEntity.setStatus(statusPedidoEntity);
-//        pedidoEntity.setStatusPagamento(statusPagamentoEntity);
-        pedidoEntity.setValor(pedido.getValor());
-        pedidoEntity.setDataCriacao(pedido.getDataCriacao());
+        orderEntity.setId(order.getId());
+        orderEntity.setStatus(order.getStatus());
+        orderEntity.setPaymentStatus(order.getPaymentStatus());
+        orderEntity.setAmount(order.getAmount());
+        orderEntity.setCpf(order.getCpf());
 //        pedidoEntity.setProdutos(produtoPedidoMapper.fromListDomainToListEntity(pedido.getProdutoPedidos()));
 
-        return pedidoEntity;
+        return orderEntity;
     }
 
-    public List<Pedido> fromListEntityToListDTO(List<PedidoEntity> pedidos) {
+    public List<Order> fromListEntityToListDTO(List<OrderEntity> pedidos) {
         return pedidos.stream().map(this::fromEntityToDomain).toList();
     }
 
-    public List<PedidoEntity> fromListDTOToListEntity(List<Pedido> pedidos) {
+    public List<OrderEntity> fromListDTOToListEntity(List<Order> pedidos) {
         return pedidos.stream().map(this::fromDomainToEntity).toList();
     }
 
-    private static Map<Long, List<ItemPedido>> buildMapItemPedido(PedidoEntity pedidoEntity, List<ProdutoPedido> produtosPedidos) {
+    private static Map<Long, List<ItemPedido>> buildMapItemPedido(OrderEntity pedidoEntity, List<ProdutoPedido> produtosPedidos) {
         Map<Long, List<ItemPedido>> mapItemPedido = new HashMap<>();
-        produtosPedidos.forEach(it -> {
-
-            ItemPedido itemPedido = new ItemPedido(pedidoEntity.getId(), it.getQuantidade().longValue());
-            CategoriaEnum categoriaEnum = CategoriaEnum.fromName(it.getProduto().getCategoria().getNome());
-
-            if(mapItemPedido.isEmpty()) {
-                List<ItemPedido> list = new ArrayList<>();
-                list.add(itemPedido);
-                mapItemPedido.put(categoriaEnum.getIdCategoria(), list);
-            }
-
-            if(mapItemPedido.containsKey(categoriaEnum.getIdCategoria())) {
-                mapItemPedido.get(categoriaEnum.getIdCategoria()).add(itemPedido);
-            }else {
-                List<ItemPedido> list = new ArrayList<>();
-                list.add(itemPedido);
-                mapItemPedido.put(categoriaEnum.getIdCategoria(), list);
-            }
-        });
+//        produtosPedidos.forEach(it -> {
+//
+//            ItemPedido itemPedido = new ItemPedido(pedidoEntity.getId(), it.getQuantidade().longValue());
+//            CategoriaEnum categoriaEnum = CategoriaEnum.fromName(it.getProduto().getCategoria().getNome());
+//
+//            if(mapItemPedido.isEmpty()) {
+//                List<ItemPedido> list = new ArrayList<>();
+//                list.add(itemPedido);
+//                mapItemPedido.put(categoriaEnum.getIdCategoria(), list);
+//            }
+//
+//            if(mapItemPedido.containsKey(categoriaEnum.getIdCategoria())) {
+//                mapItemPedido.get(categoriaEnum.getIdCategoria()).add(itemPedido);
+//            }else {
+//                List<ItemPedido> list = new ArrayList<>();
+//                list.add(itemPedido);
+//                mapItemPedido.put(categoriaEnum.getIdCategoria(), list);
+//            }
+//        });
         return mapItemPedido;
     }
 

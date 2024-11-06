@@ -4,8 +4,8 @@ import br.com.fiap.techchallenge.application.gateways.IPedidoRepository;
 import br.com.fiap.techchallenge.domain.ErrosEnum;
 import br.com.fiap.techchallenge.domain.entities.cliente.Cliente;
 import br.com.fiap.techchallenge.domain.entities.pagamento.StatusPagamento;
-import br.com.fiap.techchallenge.domain.entities.pedido.Pedido;
-import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.PedidoEntity;
+import br.com.fiap.techchallenge.domain.entities.pedido.Order;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntity;
 import br.com.fiap.techchallenge.infra.exception.PedidoException;
 import br.com.fiap.techchallenge.infra.mapper.pedido.PedidoMapper;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.PedidoEntityRepository;
@@ -26,29 +26,23 @@ public class PedidoRepository implements IPedidoRepository {
     }
 
     @Override
-    public Pedido criarPedido(Pedido pedido) {
-        Cliente cliente = buscarCliente(pedido);
-
-        pedido.setCliente(cliente);
-//        pedido.setStatusPagamento(new StatusPagamento(StatusPagamentoEnum.PENDENTE.getStatus()));
-//        pedido.setStatus(new StatusPedido(StatusPedidoEnum.RECEBIDO.getStatus()));
-
-        PedidoEntity pedidoEntity = pedidoEntityRepository.saveAndFlush(pedidoMapper.fromDomainToEntity(pedido));
+    public Order createOrder(Order order) {
+        OrderEntity orderEntity = pedidoEntityRepository.save(pedidoMapper.fromDomainToEntity(order));
 //        List<ProdutoPedidoEntity> produtoPedidos = produtoPedidoMapper.fromListDomainToListEntity(pedido.getProdutoPedidos());
 //        produtoPedidos.parallelStream().forEach(item -> item.setPedidoEntity(pedidoEntity));
 //        pedidoEntity.setProdutos(produtoPedidos);
 //        produtoPedidoRepository.saveAllAndFlush(produtoPedidos);
-        return pedidoMapper.fromEntityToDomain(pedidoEntity);
+        return pedidoMapper.fromEntityToDomain(orderEntity);
     }
 
     @Override
-    public Pedido atualizarStatusDoPedido(Pedido pedidoAtualizado) {
+    public Order atualizarStatusDoPedido(Order pedidoAtualizado) {
 //        log.info("Atualizando status do pedido.");
         definirDataFinalizacaoPedido(pedidoAtualizado);
-        return pedidoMapper.fromEntityToDomain(pedidoEntityRepository.saveAndFlush(pedidoMapper.fromDomainToEntity(pedidoAtualizado)));
+        return pedidoMapper.fromEntityToDomain(pedidoEntityRepository.save(pedidoMapper.fromDomainToEntity(pedidoAtualizado)));
     }
 
-    private Cliente buscarCliente(Pedido request) {
+    private Cliente buscarCliente(Order request) {
 //        if (request.getCliente() == null || request.getCliente().getCpf().isBlank() || request.getCliente().getCpf().isEmpty()) {
 //            return null;
 //        }
@@ -60,7 +54,7 @@ public class PedidoRepository implements IPedidoRepository {
         return new Cliente();
     }
 
-    private void definirDataFinalizacaoPedido(Pedido novo) {
+    private void definirDataFinalizacaoPedido(Order novo) {
 //        StatusPedidoEnum statusNovo = StatusPedidoEnum.byId(novo.getStatus().getId());
 //        if (StatusPedidoEnum.FINALIZADO.equals(statusNovo)) {
 //            novo.setDataFinalizacao(LocalDateTime.now());
@@ -68,13 +62,13 @@ public class PedidoRepository implements IPedidoRepository {
     }
 
     @Override
-    public Pedido atualizarPagamentoDoPedido(Pedido pedido) {
+    public Order atualizarPagamentoDoPedido(Order pedido) {
 //        log.info("Atualizando status de pagamento do pedido.");
-        return pedidoMapper.fromEntityToDomain(pedidoEntityRepository.saveAndFlush(pedidoMapper.fromDomainToEntity(pedido)));
+        return pedidoMapper.fromEntityToDomain(pedidoEntityRepository.save(pedidoMapper.fromDomainToEntity(pedido)));
     }
 
     @Override
-    public StatusPagamento consultarStatusPagamentoDoPedido(Long id) {
+    public StatusPagamento consultarStatusPagamentoDoPedido(String id) {
 //        log.info("Consultar status de pagamento do pedido.");
 //        Optional<PedidoEntity> pedidoOptional = pedidoEntityRepository.findById(id);
 //        if (pedidoOptional.isEmpty()) {
@@ -86,10 +80,10 @@ public class PedidoRepository implements IPedidoRepository {
     }
 
     @Override
-    public Pedido buscarPedidoPorId(Long id) {
+    public Order buscarPedidoPorId(String id) {
 //        log.info("buscarPedidoPorId");
         try {
-            PedidoEntity pedido = this.pedidoEntityRepository.findById(id).orElseThrow(() -> new PedidoException(ErrosEnum.PEDIDO_CODIGO_IDENTIFICADOR_INVALIDO));
+            OrderEntity pedido = this.pedidoEntityRepository.findById(id).orElseThrow(() -> new PedidoException(ErrosEnum.PEDIDO_CODIGO_IDENTIFICADOR_INVALIDO));
             return pedidoMapper.fromEntityToDomain(pedido);
         } catch (Exception e) {
 //            log.error("O identificador informado não existe no banco de dados.");
@@ -98,24 +92,24 @@ public class PedidoRepository implements IPedidoRepository {
     }
 
     @Override
-    public List<Pedido> listarPedidos() {
-        List<PedidoEntity> listPedidoEntity = pedidoEntityRepository.findAll(Sort.by("dataCriacao").descending());
+    public List<Order> listarPedidos() {
+        List<OrderEntity> listPedidoEntity = pedidoEntityRepository.findAll(Sort.by("dataCriacao").descending());
         return pedidoMapper.fromListEntityToListDTO(listPedidoEntity);
     }
 
-    private List<PedidoEntity> obterPedidosOrdenadosPeloStatus() {
+    private List<OrderEntity> obterPedidosOrdenadosPeloStatus() {
         return pedidoEntityRepository.findAll(Sort.by("status.id").descending());
     }
 
-    private List<PedidoEntity> removerPedidosFinalizadosCancelados(List<PedidoEntity> listaPedido) {
+    private List<OrderEntity> removerPedidosFinalizadosCancelados(List<OrderEntity> listaPedido) {
 //        Predicate<PedidoEntity> exceptDone = pedidoEntity -> !(pedidoEntity.getStatus().getId().equals(StatusPedidoEnum.FINALIZADO.getId()));
 //        Predicate<PedidoEntity> exceptCancelled = pedidoEntity -> !(pedidoEntity.getStatus().getId().equals(StatusPedidoEnum.CANCELADO.getId()));
 //        return listaPedido.stream().filter(exceptDone.and(exceptCancelled)).sorted(this::ordenarPorHorarioRecebimento).sorted(this::ordernarPorStatus).toList();
         return null;
     }
 
-    private int ordenarPorHorarioRecebimento(PedidoEntity pedidoEntity, PedidoEntity pedidoEntity1) {
-        return pedidoEntity.getDataCriacao().compareTo(pedidoEntity1.getDataCriacao());
+    private int ordenarPorHorarioRecebimento(OrderEntity pedidoEntity, OrderEntity pedidoEntity1) {
+        return pedidoEntity.getCreationDate().compareTo(pedidoEntity1.getCreationDate());
     }
 
 //    private int ordernarPorStatus(PedidoEntity pedidoEntity, PedidoEntity pedidoEntity1) {
@@ -123,7 +117,7 @@ public class PedidoRepository implements IPedidoRepository {
 //    }
 
     @Override
-    public List<Pedido> listarPedidosPorStatus(String status) {
+    public List<Order> listarPedidosPorStatus(String status) {
 //        StatusPedidoEnum statusPedidoEnum = StatusPedidoEnum.byStatus(status);
 //
 //        List<Pedido> pedidos = this.listarPedidos();

@@ -2,12 +2,8 @@ package br.com.fiap.techchallenge.application.usecases.order;
 
 import br.com.fiap.techchallenge.application.gateways.IPedidoRepository;
 import br.com.fiap.techchallenge.domain.ErrosEnum;
-import br.com.fiap.techchallenge.domain.cors.statuspagamento.IMudancaPagamentoPedido;
-import br.com.fiap.techchallenge.domain.cors.statuspagamento.MudancaPagamentoPedidoPago;
-import br.com.fiap.techchallenge.domain.cors.statuspagamento.MudancaPagamentoPedidoRecusado;
-import br.com.fiap.techchallenge.domain.cors.statuspedido.*;
 import br.com.fiap.techchallenge.domain.entities.pagamento.PagamentoPedidoEnum;
-import br.com.fiap.techchallenge.domain.entities.pedido.Pedido;
+import br.com.fiap.techchallenge.domain.entities.pedido.Order;
 import br.com.fiap.techchallenge.domain.entities.pedido.StatusPedidoEnum;
 import br.com.fiap.techchallenge.infra.exception.PedidoException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,19 +25,19 @@ public class UpdateOrderUseCase {
         this.pedidoRepository = pedidoRepository;
     }
 
-    public Pedido atualizarStatusDoPedido(String id, JsonPatch patch) {
+    public Order atualizarStatusDoPedido(String id, JsonPatch patch) {
         try{
             validarDados(id, patch);
 
-            Pedido pedido = pedidoRepository.buscarPedidoPorId(Long.valueOf(id));
+            Order pedido = pedidoRepository.buscarPedidoPorId(id);
 
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
 
             JsonNode patched = patch.apply(objectMapper.convertValue(pedido, JsonNode.class));
 
-            Pedido pedidoAtualizado = objectMapper.treeToValue(patched, Pedido.class);
-            pedidoAtualizado.setCliente(pedido.getCliente());
+            Order pedidoAtualizado = objectMapper.treeToValue(patched, Order.class);
+//            pedidoAtualizado.setCliente(pedido.getCliente());
 
             validarMudancaDeStatus(pedido, pedidoAtualizado);
 
@@ -51,11 +47,11 @@ public class UpdateOrderUseCase {
         }
     }
 
-    public Pedido atualizarPagamentoDoPedido(String id, JsonPatch patch) {
+    public Order atualizarPagamentoDoPedido(String id, JsonPatch patch) {
         try {
             validarDados(id, patch);
 
-            Pedido pedidoAtual = pedidoRepository.buscarPedidoPorId(Long.valueOf(id));
+            Order pedidoAtual = pedidoRepository.buscarPedidoPorId(id);
 
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
@@ -63,7 +59,7 @@ public class UpdateOrderUseCase {
             JsonNode node = objectMapper.convertValue(pedidoAtual, JsonNode.class);
             JsonNode patched = patch.apply(node);
 
-            Pedido pedidoAtualizado = objectMapper.treeToValue(patched, Pedido.class);
+            Order pedidoAtualizado = objectMapper.treeToValue(patched, Order.class);
 
             validarMudancaDePagamento(pedidoAtual, pedidoAtualizado);
 
@@ -123,7 +119,7 @@ public class UpdateOrderUseCase {
         }
     }
 
-    private void validarMudancaDeStatus(Pedido atual, Pedido novo) {
+    private void validarMudancaDeStatus(Order atual, Order novo) {
 //        log.info("Validando mudança de status do pedido.");
 //        StatusPedidoEnum statusAtual = StatusPedidoEnum.byId(atual.getStatus().getId());
 //        StatusPedidoEnum statusNovo = StatusPedidoEnum.byId(novo.getStatus().getId());
@@ -139,7 +135,7 @@ public class UpdateOrderUseCase {
 //        mudancaStatusPedido.validarMudancaDeStatus(statusAtual, statusNovo);
     }
 
-    private void validarMudancaDePagamento(Pedido atual, Pedido novo) {
+    private void validarMudancaDePagamento(Order atual, Order novo) {
 //        log.info("Validando mudança de status de pagamento do pedido.");
 //        PagamentoPedidoEnum statusPagamentoAtual = PagamentoPedidoEnum.byId(atual.getStatusPagamento().getId());
 //        PagamentoPedidoEnum statusPagamentoNovo = PagamentoPedidoEnum.byId(novo.getStatusPagamento().getId());

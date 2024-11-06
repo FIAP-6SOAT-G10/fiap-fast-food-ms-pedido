@@ -1,24 +1,24 @@
 package br.com.fiap.techchallenge.application.gateways;
 
 import br.com.fiap.techchallenge.domain.entities.pagamento.StatusPagamento;
-import br.com.fiap.techchallenge.domain.entities.pedido.Pedido;
+import br.com.fiap.techchallenge.domain.entities.pedido.Order;
 
 import java.util.List;
 
 public interface IPedidoRepository {
 
-    Pedido criarPedido(Pedido pedido);
+    Order createOrder(Order pedido);
 
-    Pedido atualizarStatusDoPedido(Pedido pedido);
+    Order atualizarStatusDoPedido(Order pedido);
 
-    Pedido atualizarPagamentoDoPedido(Pedido pedido);
+    Order atualizarPagamentoDoPedido(Order pedido);
 
-    StatusPagamento consultarStatusPagamentoDoPedido(Long id);
+    StatusPagamento consultarStatusPagamentoDoPedido(String id);
 
-    Pedido buscarPedidoPorId(Long id);
+    Order buscarPedidoPorId(String id);
 
-    List<Pedido> listarPedidos();
+    List<Order> listarPedidos();
 
-    List<Pedido> listarPedidosPorStatus(String status);
+    List<Order> listarPedidosPorStatus(String status);
 
 }

@@ -1,6 +1,5 @@
 package br.com.fiap.techchallenge.infra.entrypoints.rest.order.model;
 
-import br.com.fiap.techchallenge.domain.entities.pagamento.StatusPagamento;
 import br.com.fiap.techchallenge.domain.entities.pedido.ProdutoPedido;
 import br.com.fiap.techchallenge.domain.entities.pedido.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,36 +19,36 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Schema(description = "Objeto que representa um pedido dentro do sistema")
-public class PedidoDTO {
+public class OrderDTO {
 
     @Schema(description = "Campo identificador único de pedido", example = "12345678900")
     private Long id;
 
-    @Schema(description = "Campo identificador único de do cliente que solicitou o pedido", example = "12345678900")
-    private ClienteDTO cliente;
+    @Schema(description = "O cpf do cliente que será criado.", example = "123.123.123-12")
+    private String cpf;
 
     @Schema(description = "Campo que informa o status do pedido", example = "Em Preparo")
-    private StatusPedido status;
+    private String status;
 
     @Schema(description = "Campo que informa o valor totla do pedido", example = "89.25")
-    private BigDecimal valor;
+    private BigDecimal amount;
 
     @Schema(description = "Data de criação do pedido", example = "02/05/2024")
-    private LocalDateTime dataCriacao;
+    private LocalDateTime creationDate;
 
     @Schema(description = "Data de finalização do pedido", example = "02/05/2024")
-    private LocalDateTime dataFinalizacao;
+    private LocalDateTime completionDate;
 
     @Schema(description = "Data de cancelamento do pedido", example = "02/05/2024")
-    private LocalDateTime dataCancelamento;
+    private LocalDateTime cancellationDate;
 
     @Schema(description = "Campo que informa o status de pagamento do pedido", example = "Pago")
-    private StatusPagamento statusPagamento;
+    private String paymentStatus;
 
     @Schema(description = "Campo que informa os produtos do pedido")
-    private List<ProdutoPedido> produtos;
+    private List<Long> products;
 
-    @Schema(description = "Campo que informa os itens do pedido")
-    private ItemDTO items;
+//    @Schema(description = "Campo que informa os itens do pedido")
+//    private ItemDTO items;
 
 }
