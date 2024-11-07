@@ -5,14 +5,14 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ItemPedidoDTO {
+public class Item {
 
     private Long id;
     private Long quantidade;
 
-    public ItemPedidoDTO() { }
+    public Item() { }
 
-    public ItemPedidoDTO(Long id, Long quantidade) {
+    public Item(Long id, Long quantidade) {
         this.id = id;
         this.quantidade = quantidade;
     }

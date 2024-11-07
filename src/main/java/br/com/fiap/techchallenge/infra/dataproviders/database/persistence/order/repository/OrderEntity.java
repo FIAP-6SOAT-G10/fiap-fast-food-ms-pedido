@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Document(collection = "pedido")
+@Document(collection = "order")
 public class OrderEntity {
 
     @Id
@@ -35,13 +35,13 @@ public class OrderEntity {
     @Field("paymentStatus")
     private String paymentStatus;
 
-    @Field("product_ids")
-    private List<Long> productIds;
+    @Field("items")
+    private List<ItemEntity> items;
 
     public OrderEntity() {
     }
 
-    public OrderEntity(String id, String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<Long> productIds) {
+    public OrderEntity(String id, String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<ItemEntity> items) {
         this.id = id;
         this.cpf = cpf;
         this.status = status;
@@ -50,7 +50,7 @@ public class OrderEntity {
         this.completionDate = completionDate;
         this.cancellationDate = cancellationDate;
         this.paymentStatus = paymentStatus;
-        this.productIds = productIds;
+        this.items = items;
     }
 
     public String getId() {
@@ -117,12 +117,11 @@ public class OrderEntity {
         this.paymentStatus = paymentStatus;
     }
 
-    public List<Long> getProductIds() {
-        return productIds;
+    public List<ItemEntity> getItems() {
+        return items;
     }
 
-    public void setProductIds(List<Long> productIds) {
-        this.productIds = productIds;
+    public void setItems(List<ItemEntity> items) {
+        this.items = items;
     }
-
 }

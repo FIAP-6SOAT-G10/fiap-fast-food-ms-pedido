@@ -1,27 +1,28 @@
-package br.com.fiap.techchallenge.domain.entities.pedido;
+package br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository;
 
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigDecimal;
 
-public class Item {
+public class ItemEntity {
 
+    @Field("item_id")
     private Long itemId;
+
+    @Field("price")
     private BigDecimal price;
+
+    @Field("quantity")
     private Long quantity;
 
-    public Item() { }
+    public ItemEntity() { }
 
-    public Item(Long itemId, BigDecimal price) {
-        this.itemId = itemId;
-        this.price = price;
-    }
-
-    public Item(Long itemId, Long quantity) {
+    public ItemEntity(Long itemId, Long quantity) {
         this.itemId = itemId;
         this.quantity = quantity;
     }
 
-    public Item(Long itemId, BigDecimal price, Long quantity) {
+    public ItemEntity(Long itemId, BigDecimal price, Long quantity) {
         this.itemId = itemId;
         this.price = price;
         this.quantity = quantity;
@@ -51,3 +52,7 @@ public class Item {
         this.quantity = quantity;
     }
 }
+
+
+
+

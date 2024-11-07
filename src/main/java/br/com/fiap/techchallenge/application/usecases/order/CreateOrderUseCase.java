@@ -1,85 +1,97 @@
 package br.com.fiap.techchallenge.application.usecases.order;
 
-import br.com.fiap.techchallenge.application.gateways.IPedidoRepository;
-import br.com.fiap.techchallenge.application.gateways.IProdutoRepository;
+import br.com.fiap.techchallenge.application.gateways.ICustomerRepository;
+import br.com.fiap.techchallenge.application.gateways.IOrderRepository;
+import br.com.fiap.techchallenge.application.gateways.IItemRepository;
 import br.com.fiap.techchallenge.domain.entities.pedido.Item;
-import br.com.fiap.techchallenge.domain.entities.pedido.ItemPedido;
 import br.com.fiap.techchallenge.domain.entities.pedido.Order;
-import br.com.fiap.techchallenge.domain.entities.pedido.ProdutoPedido;
-import br.com.fiap.techchallenge.domain.entities.produto.Produto;
+import br.com.fiap.techchallenge.infra.exception.PedidoException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static br.com.fiap.techchallenge.domain.ErrosEnum.PEDIDO_SEM_CLIENTE_E_ITEMS;
 
 @Slf4j
 public class CreateOrderUseCase {
 
-    private final IPedidoRepository pedidoRepository;
-    private final IProdutoRepository produtoRepository;
+    private final IOrderRepository orderRepository;
+    private final IItemRepository itemRepository;
+    private final ICustomerRepository customerRepository;
 
-    public CreateOrderUseCase(IPedidoRepository pedidoRepository, IProdutoRepository produtoRepository) {
-        this.pedidoRepository = pedidoRepository;
-        this.produtoRepository = produtoRepository;
+    public CreateOrderUseCase(IOrderRepository orderRepository, IItemRepository itemRepository, ICustomerRepository customerRepository) {
+        this.orderRepository = orderRepository;
+        this.itemRepository = itemRepository;
+        this.customerRepository = customerRepository;
     }
 
-    public Order criarPedido(Order pedido) {
+    public Order createOrder(Order order) {
 
-//        List<ProdutoPedido> itens = totalizaItensDoPedido(pedido.getItems());
-//        BigDecimal subtotal = itens.stream().map(ProdutoPedido::getValorTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+        if (order.getCpf().isEmpty() && order.getItems() == null) {
+            throw new PedidoException(PEDIDO_SEM_CLIENTE_E_ITEMS);
+        }
 
-//        pedido.getProdutoPedidos().addAll(itens);
-//        pedido.totalizar(subtotal);
-       return pedidoRepository.createOrder(pedido);
+        if (!order.getCpf().isEmpty()) {
+            customerRepository.findByCpf(order.getCpf());
+        }
+
+        order.getItems().forEach(item -> {
+            Item itemResponse = itemRepository.findById(item.getItemId());
+            item.setPrice(itemResponse.getPrice());
+        });
+
+        order.setAmount(calculateTotalAmount(order.getItems()));
+        return orderRepository.createOrder(order);
     }
 
-    private List<ProdutoPedido> totalizaItensDoPedido(Item item) {
-        Map<Long, List<ItemPedido>> items = Stream.of(
-                        item.getLanches(),
-                        item.getAcompanhamento(),
-                        item.getBebida(),
-                        item.getSobremesa())
-                .reduce(this::unificarItens)
-                .get()
-                .stream()
-                .collect(Collectors.groupingBy(ItemPedido::getId));
-
-        return items.entrySet().stream().map(this::criarListaDeProdutosPedido)
-                .reduce(this::unificarProdutos)
-                .stream()
-                .findAny()
-                .orElse(Collections.emptyList());
+    public BigDecimal calculateTotalAmount(List<Item> items) {
+        return items.stream()
+                .map(item -> item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()))) // Multiplica price por quantity
+                .reduce(BigDecimal.ZERO, BigDecimal::add); // Soma os valores multiplicados
     }
 
-    private List<ItemPedido> unificarItens(List<ItemPedido> primeira, List<ItemPedido> segunda) {
-        primeira.addAll(segunda);
-        return primeira;
-    }
+//    private BigDecimal sumItemsAmount(List<Item> items) {
+//        Map<Long, List<ItemPedido>> items = Stream.of(
+//                        item.getLanches(),
+//                        item.getAcompanhamento(),
+//                        item.getBebida(),
+//                        item.getSobremesa())
+//                .reduce(this::unificarItens)
+//                .get()
+//                .stream()
+//                .collect(Collectors.groupingBy(ItemPedido::getId));
+//
+//        return items.entrySet().stream().map(this::criarListaDeProdutosPedido)
+//                .reduce(this::unificarProdutos)
+//                .stream()
+//                .findAny()
+//                .orElse(Collections.emptyList());
+//    }
+//
+//    private List<ItemPedido> unificarItens(List<ItemPedido> primeira, List<ItemPedido> segunda) {
+//        primeira.addAll(segunda);
+//        return primeira;
+//    }
 
-    private List<ProdutoPedido> criarListaDeProdutosPedido(Map.Entry<Long, List<ItemPedido>> entry) {
-        Long id = entry.getKey();
-        List<ItemPedido> itens = entry.getValue();
+//    private List<OrderProduct> criarListaDeProdutosPedido(Map.Entry<Long, List<ItemPedido>> entry) {
+//        Long id = entry.getKey();
+//        List<ItemPedido> itens = entry.getValue();
+//
+//        long quantidade = itens.stream().map(ItemPedido::getQuantidade).reduce(0L, Long::sum);
+//        Produto produto = produtoRepository.findById(id);
+//
+//        OrderProduct orderProduct = new OrderProduct(produto, produto.getPreco().multiply(BigDecimal.valueOf(quantidade)), BigInteger.valueOf(quantidade));
+//
+//        return List.of(orderProduct);
+//    }
 
-        long quantidade = itens.stream().map(ItemPedido::getQuantidade).reduce(0L, Long::sum);
-        Produto produto = produtoRepository.findById(id);
-
-        ProdutoPedido produtoPedido = new ProdutoPedido(produto, produto.getPreco().multiply(BigDecimal.valueOf(quantidade)), BigInteger.valueOf(quantidade));
-
-        return List.of(produtoPedido);
-    }
-
-    private List<ProdutoPedido> unificarProdutos(List<ProdutoPedido> primeira, List<ProdutoPedido> segunda) {
-        List<ProdutoPedido> produtos = new ArrayList<>();
-        produtos.addAll(primeira);
-        produtos.addAll(segunda);
-
-        return produtos;
-    }
+//    private List<Product> unificarProdutos(List<Product> primeira, List<Product> segunda) {
+//        List<Product> produtos = new ArrayList<>();
+//        produtos.addAll(primeira);
+//        produtos.addAll(segunda);
+//
+//        return produtos;
+//    }
 
 }

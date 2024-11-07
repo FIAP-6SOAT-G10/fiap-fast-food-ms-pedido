@@ -1,9 +1,4 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/tech-challenge
-      database: tech-challenge
-#  datasource:
-#    url: jdbc:postgresql://0.0.0.0:5432/postgres
-#  jpa:
-#    show-sql: true
+      uri: mongodb://localhost:27017/order-microservice

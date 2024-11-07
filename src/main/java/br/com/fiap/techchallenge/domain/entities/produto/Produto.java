@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.domain.entities.produto;
 
-import br.com.fiap.techchallenge.domain.entities.pedido.ProdutoPedido;
+import br.com.fiap.techchallenge.domain.entities.pedido.Product;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,7 +12,7 @@ public class Produto {
     private Categoria categoria;
     private BigDecimal preco;
     private String imagem;
-    private List<ProdutoPedido> pedidos;
+    private List<Product> pedidos;
 
     public Produto() {}
 
@@ -77,7 +77,7 @@ public class Produto {
         return imagem;
     }
 
-    public List<ProdutoPedido> getPedidos() {
+    public List<Product> getPedidos() {
         return pedidos;
     }
 }

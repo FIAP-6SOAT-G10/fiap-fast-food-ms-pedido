@@ -1,10 +1,7 @@
 package br.com.fiap.techchallenge.domain.entities.pedido;
 
-import br.com.fiap.techchallenge.domain.entities.cliente.Cliente;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,37 +15,37 @@ public class Order {
     private LocalDateTime completionDate;
     private LocalDateTime cancellationDate;
     private String paymentStatus;
-    private List<ProdutoPedido> produtoPedidos;
-    private Item items;
+    private List<Item> items;
 
     public Order() {}
 
-    public Order(Item items) {
+    public Order(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Order(List<Item> items) {
         if (items == null) {
             throw new IllegalArgumentException("Items é um campo obrigatório no cadastro de novos pedidos.");
         }
         this.items = items;
-        this.produtoPedidos = new ArrayList<>();
         this.amount = BigDecimal.ZERO;
     }
 
-    public Order(BigDecimal amount, List<ProdutoPedido> produtoPedidos) {
+    public Order(BigDecimal amount) {
         this.amount = amount;
-        this.produtoPedidos = produtoPedidos;
     }
 
-    public Order(String cpf , BigDecimal amount, List<ProdutoPedido> produtoPedidos) {
+    public Order(String cpf , BigDecimal amount) {
         this.cpf = cpf;
         this.amount = amount;
-        this.produtoPedidos = produtoPedidos;
     }
 
-    public Order(String id, String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<ProdutoPedido> produtoPedidos, Item items) {
-        this(cpf, status, amount, creationDate, completionDate, cancellationDate, paymentStatus, produtoPedidos, items);
+    public Order(String id, String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<Item> items) {
+        this(cpf, status, amount, creationDate, completionDate, cancellationDate, paymentStatus, items);
         this.id = id;
     }
 
-    public Order(String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<ProdutoPedido> produtoPedidos, Item items) {
+    public Order(String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<Item> items) {
         if (status == null) {
             throw new IllegalArgumentException("Status é um campo obrigatório no cadastro de novos pedidos.");
         }
@@ -65,10 +62,6 @@ public class Order {
             throw new IllegalArgumentException("Status de pagamento é um campo obrigatório no cadastro de novos pedidos.");
         }
 
-        if (produtoPedidos == null) {
-            throw new IllegalArgumentException("Produtos do pedido é um campo obrigatório no cadastro de novos pedidos.");
-        }
-
         if (items == null) {
             throw new IllegalArgumentException("Items é um campo obrigatório no cadastro de novos pedidos.");
         }
@@ -80,7 +73,6 @@ public class Order {
         this.completionDate = completionDate;
         this.cancellationDate = cancellationDate;
         this.paymentStatus = paymentStatus;
-        this.produtoPedidos = produtoPedidos;
         this.items = items;
     }
 
@@ -148,19 +140,11 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
-    public List<ProdutoPedido> getProdutoPedidos() {
-        return produtoPedidos;
-    }
-
-    public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
-        this.produtoPedidos = produtoPedidos;
-    }
-
-    public Item getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(Item items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 

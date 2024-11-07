@@ -1,66 +1,69 @@
 package br.com.fiap.techchallenge.infra.config;
 
-import br.com.fiap.techchallenge.application.gateways.IPedidoRepository;
-import br.com.fiap.techchallenge.application.gateways.IProdutoRepository;
+import br.com.fiap.techchallenge.application.gateways.ICustomerRepository;
+import br.com.fiap.techchallenge.application.gateways.IOrderRepository;
+import br.com.fiap.techchallenge.application.gateways.IItemRepository;
 import br.com.fiap.techchallenge.application.usecases.order.CreateOrderUseCase;
 import br.com.fiap.techchallenge.application.usecases.order.GetOrderUseCase;
 import br.com.fiap.techchallenge.application.usecases.order.UpdateOrderUseCase;
-import br.com.fiap.techchallenge.infra.entrypoints.rest.order.PedidoController;
-import br.com.fiap.techchallenge.infra.gateways.PedidoRepository;
-import br.com.fiap.techchallenge.infra.gateways.ProdutoRepository;
-import br.com.fiap.techchallenge.infra.mapper.pedido.PedidoMapper;
-import br.com.fiap.techchallenge.infra.mapper.produto.ProdutoMapper;
-import br.com.fiap.techchallenge.infra.mapper.produtopedido.ProdutoPedidoMapper;
-import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.PedidoEntityRepository;
+import br.com.fiap.techchallenge.infra.dataproviders.network.customer.CustomerClient;
+import br.com.fiap.techchallenge.infra.dataproviders.network.item.ItemClient;
+import br.com.fiap.techchallenge.infra.gateways.CustomerRepository;
+import br.com.fiap.techchallenge.infra.gateways.OrderRepository;
+import br.com.fiap.techchallenge.infra.gateways.ItemRepository;
+import br.com.fiap.techchallenge.infra.mapper.CustomerMapper;
+import br.com.fiap.techchallenge.infra.mapper.ItemMapper;
+import br.com.fiap.techchallenge.infra.mapper.OrderMapper;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntityRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OrderConfig {
 
-//    @Bean
-//    public PedidoController createOrderController(CreateOrderUseCase createOrderUseCase, GetOrderUseCase getOrderUseCase, UpdateOrderUseCase updateOrderUseCase) {
-//        return new PedidoController(createOrderUseCase, getOrderUseCase, updateOrderUseCase);
-//    }
-
     @Bean
-    public IPedidoRepository criarPedidoProdutoRepository(PedidoEntityRepository pedidoEntityRepository, PedidoMapper pedidoMapper) {
-        return new PedidoRepository(pedidoEntityRepository, pedidoMapper);
+    public IOrderRepository createOrderRepository(OrderEntityRepository orderEntityRepository, OrderMapper orderMapper) {
+        return new OrderRepository(orderEntityRepository, orderMapper);
     }
 
     @Bean
-    public IProdutoRepository createProductRepository(ProdutoMapper produtoMapper) {
-        return new ProdutoRepository(produtoMapper);
+    public IItemRepository createItemRepository(ItemClient itemClient) {
+        return new ItemRepository(itemClient);
     }
 
     @Bean
-    public CreateOrderUseCase createOrderUseCase(IPedidoRepository pedidoRepository, IProdutoRepository produtoRepository) {
-        return new CreateOrderUseCase(pedidoRepository, produtoRepository);
+    public ICustomerRepository createCustomerRepository(CustomerClient customerClient) {
+        return new CustomerRepository(customerClient);
     }
 
     @Bean
-    public GetOrderUseCase criarGetPedidoUseCase(IPedidoRepository pedidoRepository) {
-        return new GetOrderUseCase(pedidoRepository);
+    public CreateOrderUseCase createOrderUseCase(IOrderRepository orderRepository, IItemRepository itemRepository, ICustomerRepository customerRepository) {
+        return new CreateOrderUseCase(orderRepository, itemRepository, customerRepository);
     }
 
     @Bean
-    public UpdateOrderUseCase criarPatchPedidoUseCase(IPedidoRepository pedidoRepository) {
-        return new UpdateOrderUseCase(pedidoRepository);
+    public GetOrderUseCase createGetOrderUseCase(IOrderRepository orderRepository) {
+        return new GetOrderUseCase(orderRepository);
     }
 
     @Bean
-    public PedidoMapper criarPedidoMapper() {
-        return new PedidoMapper();
+    public UpdateOrderUseCase createUpdateOrderUseCase(IOrderRepository orderRepository) {
+        return new UpdateOrderUseCase(orderRepository);
     }
 
     @Bean
-    public ProdutoMapper createProdutoMapper() {
-        return new ProdutoMapper();
+    public CustomerMapper createCustomerMapper() {
+        return new CustomerMapper();
     }
 
     @Bean
-    public ProdutoPedidoMapper criarProdutoPedidoMapper() {
-        return new ProdutoPedidoMapper();
+    public OrderMapper createOrderMapper() {
+        return new OrderMapper();
+    }
+
+    @Bean
+    public ItemMapper createItemMapper() {
+        return new ItemMapper();
     }
 
 }

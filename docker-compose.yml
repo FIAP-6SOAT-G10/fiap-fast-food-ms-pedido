@@ -6,7 +6,6 @@ services:
     environment:
       DB_USERNAME: ${MONGO_USERNAME:-tech}
       DB_PASSWORD: ${MONGO_PASSWORD:-tech_passwd}
-      MONGO_INITDB_DATABASE: tech-challenge
     ports:
       - 27017:27017
     healthcheck:

@@ -1,54 +1,48 @@
 package br.com.fiap.techchallenge.infra.entrypoints.rest.order.model;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 
 public class ItemDTO {
 
-    private List<ItemPedidoDTO> lanches = new ArrayList<>();
-    private List<ItemPedidoDTO> acompanhamento = new ArrayList<>();
-    private List<ItemPedidoDTO> bebida = new ArrayList<>();
-    private List<ItemPedidoDTO> sobremesa = new ArrayList<>();
+    private Long id;
+    private BigDecimal price;
+    private Long quantity;
 
     public ItemDTO() { }
 
-    public ItemDTO(List<ItemPedidoDTO> sobremesa, List<ItemPedidoDTO> bebida, List<ItemPedidoDTO> acompanhamento, List<ItemPedidoDTO> lanches) {
-        this.sobremesa = sobremesa;
-        this.bebida = bebida;
-        this.acompanhamento = acompanhamento;
-        this.lanches = lanches;
+    public ItemDTO(Long id, Long quantity) {
+        this.id = id;
+        this.quantity = quantity;
     }
 
-    public List<ItemPedidoDTO> getLanches() {
-        return lanches;
+    public ItemDTO(Long id, BigDecimal price, Long quantity) {
+        this.id = id;
+        this.price = price;
+        this.quantity = quantity;
     }
 
-    public void setLanches(List<ItemPedidoDTO> lanches) {
-        this.lanches = lanches;
+    public Long getId() {
+        return id;
     }
 
-    public List<ItemPedidoDTO> getAcompanhamento() {
-        return acompanhamento;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setAcompanhamento(List<ItemPedidoDTO> acompanhamento) {
-        this.acompanhamento = acompanhamento;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public List<ItemPedidoDTO> getBebida() {
-        return bebida;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public void setBebida(List<ItemPedidoDTO> bebida) {
-        this.bebida = bebida;
+    public Long getQuantity() {
+        return quantity;
     }
 
-    public List<ItemPedidoDTO> getSobremesa() {
-        return sobremesa;
-    }
-
-    public void setSobremesa(List<ItemPedidoDTO> sobremesa) {
-        this.sobremesa = sobremesa;
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
     }
 }

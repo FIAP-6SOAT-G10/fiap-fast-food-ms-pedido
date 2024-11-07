@@ -1,7 +1,5 @@
 package br.com.fiap.techchallenge.infra.entrypoints.rest.order.model;
 
-import br.com.fiap.techchallenge.domain.entities.pedido.ProdutoPedido;
-import br.com.fiap.techchallenge.domain.entities.pedido.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -22,7 +20,7 @@ import java.util.List;
 public class OrderDTO {
 
     @Schema(description = "Campo identificador único de pedido", example = "12345678900")
-    private Long id;
+    private String id;
 
     @Schema(description = "O cpf do cliente que será criado.", example = "123.123.123-12")
     private String cpf;
@@ -46,9 +44,6 @@ public class OrderDTO {
     private String paymentStatus;
 
     @Schema(description = "Campo que informa os produtos do pedido")
-    private List<Long> products;
-
-//    @Schema(description = "Campo que informa os itens do pedido")
-//    private ItemDTO items;
+    private List<ItemDTO> items;
 
 }

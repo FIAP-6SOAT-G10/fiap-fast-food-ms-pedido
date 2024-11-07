@@ -2,8 +2,3 @@ spring:
   data:
     mongodb:
       uri: mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:27017/${DB_NAME}
-      database: ${DB_NAME}
-#  datasource:
-#    url: jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}
-#  jpa:
-#    show-sql: false

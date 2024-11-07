@@ -51,7 +51,9 @@ public enum ErrosEnum {
     PEDIDO_PAGAMENTO_RECUSADO("407", "Pedidos no status 'Recusado' não podem ser alterados.", Level.ERROR, HttpStatus.BAD_REQUEST),
     PEDIDO_STATUS_FINALIZADO("408", "Pedidos no status 'Finalizado' não podem ser alterados.", Level.ERROR, HttpStatus.BAD_REQUEST),
     PEDIDO_VAZIO("409", "Todos os itens do pedido vieram vazios por favor escolha algum item e tente novamente.", Level.ERROR, HttpStatus.BAD_REQUEST),
-    PEDIDO_FALHA_GENERICA("499", "Erro genérico ao atualizar o status do pedido.", Level.ERROR, HttpStatus.INTERNAL_SERVER_ERROR)
+    PEDIDO_FALHA_GENERICA("499", "Erro genérico ao atualizar o status do pedido.", Level.ERROR, HttpStatus.INTERNAL_SERVER_ERROR),
+
+    PEDIDO_SEM_CLIENTE_E_ITEMS("404", "Pedido sem cliente e items", Level.ERROR, HttpStatus.BAD_REQUEST)
 
     ;
     private final String code;
