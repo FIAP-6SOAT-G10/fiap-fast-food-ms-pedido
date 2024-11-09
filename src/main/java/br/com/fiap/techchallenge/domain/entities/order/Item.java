@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.domain.entities.pedido;
+package br.com.fiap.techchallenge.domain.entities.order;
 
 
 import java.math.BigDecimal;

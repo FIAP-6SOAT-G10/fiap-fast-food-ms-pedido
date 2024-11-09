@@ -2,7 +2,7 @@ package br.com.fiap.techchallenge.application.usecases.order;
 
 
 import br.com.fiap.techchallenge.application.gateways.IOrderRepository;
-import br.com.fiap.techchallenge.domain.entities.pedido.Order;
+import br.com.fiap.techchallenge.domain.entities.order.Order;
 
 import java.util.List;
 

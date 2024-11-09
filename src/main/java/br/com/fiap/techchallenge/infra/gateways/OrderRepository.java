@@ -3,17 +3,15 @@ package br.com.fiap.techchallenge.infra.gateways;
 import br.com.fiap.techchallenge.application.gateways.IOrderRepository;
 import br.com.fiap.techchallenge.domain.ErrosEnum;
 import br.com.fiap.techchallenge.domain.entities.cliente.Cliente;
-import br.com.fiap.techchallenge.domain.entities.pedido.Order;
+import br.com.fiap.techchallenge.domain.entities.order.Order;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntity;
 import br.com.fiap.techchallenge.infra.exception.PedidoException;
 import br.com.fiap.techchallenge.infra.mapper.OrderMapper;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntityRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
-@Slf4j
 public class OrderRepository implements IOrderRepository {
 
     private final OrderEntityRepository orderEntityRepository;

@@ -1,9 +1,9 @@
 package br.com.fiap.techchallenge.domain.statuspedido;
 
-import br.com.fiap.techchallenge.domain.entities.pedido.StatusPedidoEnum;
+import br.com.fiap.techchallenge.domain.entities.order.enums.OrderStatusEnum;
 
 public interface MudancaStatusPedido {
 
-    void validarMudancaDeStatus(StatusPedidoEnum atual, StatusPedidoEnum novo);
+    void validarMudancaDeStatus(OrderStatusEnum atual, OrderStatusEnum novo);
 
 }

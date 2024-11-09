@@ -1,9 +1,8 @@
 package br.com.fiap.techchallenge.infra.entrypoints.rest.order;
 
 import br.com.fiap.techchallenge.application.usecases.order.GetOrderUseCase;
-import br.com.fiap.techchallenge.application.usecases.order.UpdateOrderUseCase;
 import br.com.fiap.techchallenge.application.usecases.order.CreateOrderUseCase;
-import br.com.fiap.techchallenge.domain.entities.pedido.Order;
+import br.com.fiap.techchallenge.domain.entities.order.Order;
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderDTO;
 import br.com.fiap.techchallenge.infra.exception.BaseException;
 import br.com.fiap.techchallenge.infra.mapper.OrderMapper;
@@ -25,13 +24,11 @@ public class OrderController {
 
     private final CreateOrderUseCase createOrderUseCase;
     private final GetOrderUseCase getOrderUseCase;
-    private final UpdateOrderUseCase updateOrderUseCase;
     private final OrderMapper orderMapper;
 
-    public OrderController(CreateOrderUseCase createOrderUseCase, GetOrderUseCase getOrderUseCase, UpdateOrderUseCase updateOrderUseCase, OrderMapper orderMapper) {
+    public OrderController(CreateOrderUseCase createOrderUseCase, GetOrderUseCase getOrderUseCase, OrderMapper orderMapper) {
         this.createOrderUseCase = createOrderUseCase;
         this.getOrderUseCase = getOrderUseCase;
-        this.updateOrderUseCase = updateOrderUseCase;
         this.orderMapper = orderMapper;
     }
 
@@ -68,15 +65,5 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-
-//    @PatchMapping(path = "/{id}/status", consumes = "application/json-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Pedido> updateOrderStatus(@PathVariable("id") String id, @RequestBody JsonPatch patch) {
-//        log.info("Atualizar status do pedido.");
-//        Pedido order = updateOrderUseCase.atualizarStatusDoPedido(id, patch);
-//        if (order == null) {
-//            return ResponseEntity.internalServerError().build();
-//        }
-//        return ResponseEntity.ok(order);
-//    }
 
 }

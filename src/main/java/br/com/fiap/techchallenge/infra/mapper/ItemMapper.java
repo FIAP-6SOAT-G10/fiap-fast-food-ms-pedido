@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.infra.mapper;
 
-import br.com.fiap.techchallenge.domain.entities.pedido.Item;
+import br.com.fiap.techchallenge.domain.entities.order.Item;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.ItemEntity;
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ItemDTO;
 

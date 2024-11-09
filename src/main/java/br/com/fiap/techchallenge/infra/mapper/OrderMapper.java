@@ -1,14 +1,10 @@
 package br.com.fiap.techchallenge.infra.mapper;
 
-import br.com.fiap.techchallenge.domain.entities.pedido.*;
+import br.com.fiap.techchallenge.domain.entities.order.*;
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderDTO;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class OrderMapper {
 
@@ -35,14 +31,6 @@ public class OrderMapper {
         return order;
     }
 
-//    public OrderDTO fromDTOToDomain(Order order) {
-//        OrderDTO orderDTO = new OrderDTO();
-//        if(!orderDTO.getItems().isEmpty()) {
-//            order.setItems(itemMapper.fromListDTOToListDomain(orderDTO.getItems()));
-//        }
-//        return order;
-//    }
-
     public OrderEntity fromDomainToEntity(Order order) {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setId(order.getId());
@@ -61,40 +49,15 @@ public class OrderMapper {
         orderDTO.setPaymentStatus(order.getPaymentStatus());
         orderDTO.setAmount(order.getAmount());
         orderDTO.setCpf(order.getCpf());
+        orderDTO.setCreationDate(order.getCreationDate());
+        orderDTO.setCancellationDate(order.getCancellationDate());
+        orderDTO.setCompletionDate(order.getCompletionDate());
         orderDTO.setItems(itemMapper.fromListDomainToListDTO(order.getItems()));
         return orderDTO;
     }
 
-    public List<Order> fromListEntityToListDTO(List<OrderEntity> pedidos) {
-        return pedidos.stream().map(this::fromEntityToDomain).toList();
-    }
-
-    public List<OrderEntity> fromListDTOToListEntity(List<Order> pedidos) {
-        return pedidos.stream().map(this::fromDomainToEntity).toList();
-    }
-
-    private static Map<Long, List<ItemPedido>> buildMapItemPedido(OrderEntity pedidoEntity, List<Product> produtosPedidos) {
-        Map<Long, List<ItemPedido>> mapItemPedido = new HashMap<>();
-//        produtosPedidos.forEach(it -> {
-//
-//            ItemPedido itemPedido = new ItemPedido(pedidoEntity.getId(), it.getQuantidade().longValue());
-//            CategoriaEnum categoriaEnum = CategoriaEnum.fromName(it.getProduto().getCategoria().getNome());
-//
-//            if(mapItemPedido.isEmpty()) {
-//                List<ItemPedido> list = new ArrayList<>();
-//                list.add(itemPedido);
-//                mapItemPedido.put(categoriaEnum.getIdCategoria(), list);
-//            }
-//
-//            if(mapItemPedido.containsKey(categoriaEnum.getIdCategoria())) {
-//                mapItemPedido.get(categoriaEnum.getIdCategoria()).add(itemPedido);
-//            }else {
-//                List<ItemPedido> list = new ArrayList<>();
-//                list.add(itemPedido);
-//                mapItemPedido.put(categoriaEnum.getIdCategoria(), list);
-//            }
-//        });
-        return mapItemPedido;
+    public List<Order> fromListEntityToListDTO(List<OrderEntity> list) {
+        return list.stream().map(this::fromEntityToDomain).toList();
     }
 
 }

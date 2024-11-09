@@ -25,3 +25,8 @@ feign:
       url: http://localhost:8080
     item:
       url: http://localhost:8080
+
+aws:
+  sqs:
+    order-payment-updates-queue: order-payment-updates-queue
+    payment-request-queue: payment-request-queue

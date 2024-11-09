@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.infra.gateways;
 
 import br.com.fiap.techchallenge.application.gateways.ICustomerRepository;
-import br.com.fiap.techchallenge.domain.entities.pedido.Customer;
+import br.com.fiap.techchallenge.domain.entities.order.Customer;
 import br.com.fiap.techchallenge.infra.dataproviders.network.customer.CustomerClient;
 
 public class CustomerRepository implements ICustomerRepository {

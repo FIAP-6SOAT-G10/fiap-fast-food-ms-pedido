@@ -3,8 +3,8 @@ package br.com.fiap.techchallenge.application.usecases.order;
 import br.com.fiap.techchallenge.application.gateways.ICustomerRepository;
 import br.com.fiap.techchallenge.application.gateways.IOrderRepository;
 import br.com.fiap.techchallenge.application.gateways.IItemRepository;
-import br.com.fiap.techchallenge.domain.entities.pedido.Item;
-import br.com.fiap.techchallenge.domain.entities.pedido.Order;
+import br.com.fiap.techchallenge.domain.entities.order.Item;
+import br.com.fiap.techchallenge.domain.entities.order.Order;
 import br.com.fiap.techchallenge.infra.exception.PedidoException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +42,8 @@ public class CreateOrderUseCase {
         });
 
         order.setAmount(calculateTotalAmount(order.getItems()));
+        order.setStatus("recebido");
+        order.setPaymentStatus("pendente");
         return orderRepository.createOrder(order);
     }
 

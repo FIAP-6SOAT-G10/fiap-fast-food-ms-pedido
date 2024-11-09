@@ -2,16 +2,12 @@ package br.com.fiap.techchallenge.application.usecases.order;
 
 import br.com.fiap.techchallenge.application.gateways.IOrderRepository;
 import br.com.fiap.techchallenge.domain.ErrosEnum;
-import br.com.fiap.techchallenge.domain.entities.pagamento.PagamentoPedidoEnum;
-import br.com.fiap.techchallenge.domain.entities.pedido.Order;
-import br.com.fiap.techchallenge.domain.entities.pedido.StatusPedidoEnum;
+import br.com.fiap.techchallenge.domain.entities.order.Order;
+import br.com.fiap.techchallenge.domain.entities.payment.PaymentRequest;
 import br.com.fiap.techchallenge.infra.exception.PedidoException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.fge.jsonpatch.JsonPatch;
-import com.github.fge.jsonpatch.JsonPatchException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.regex.Pattern;
@@ -19,13 +15,13 @@ import java.util.regex.Pattern;
 @Slf4j
 public class UpdateOrderUseCase {
 
-    private final IOrderRepository pedidoRepository;
+    private final IOrderRepository orderRepository;
 
-    public UpdateOrderUseCase(IOrderRepository pedidoRepository) {
-        this.pedidoRepository = pedidoRepository;
+    public UpdateOrderUseCase(IOrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
-//    public Order atualizarStatusDoPedido(String id, JsonPatch patch) {
+    public Order updatePaymentStatus(PaymentRequest paymentRequest) {
 //        try{
 //            validarDados(id, patch);
 //
@@ -45,9 +41,10 @@ public class UpdateOrderUseCase {
 //        } catch (JsonPatchException | JsonProcessingException e) {
 //            throw new RuntimeException(e);
 //        }
-//    }
-//
-//    public Order atualizarPagamentoDoPedido(String id, JsonPatch patch) {
+        return null;
+    }
+
+    public Order atualizarPagamentoDoPedido(String id, JsonPatch patch) {
 //        try {
 //            validarDados(id, patch);
 //
@@ -67,9 +64,10 @@ public class UpdateOrderUseCase {
 //        } catch (JsonPatchException | JsonProcessingException e) {
 //            throw new RuntimeException(e);
 //        }
-//    }
-//
-//    private void validarDados(String id, JsonPatch patch) {
+        return null;
+    }
+
+    private void validarDados(String id, JsonPatch patch) {
 //        Pattern pattern = Pattern.compile("[^\\d+]");
 //        if (pattern.matcher(id).find()) {
 //            throw new PedidoException(ErrosEnum.PEDIDO_CODIGO_IDENTIFICADOR_INVALIDO);
@@ -89,9 +87,9 @@ public class UpdateOrderUseCase {
 //            }
 //
 //        }
-//    }
-//
-//    private void verificarStatus(JsonNode path, JsonNode parent) {
+    }
+
+    private void verificarStatus(JsonNode path, JsonNode parent) {
 //        if (path.asText().equalsIgnoreCase("/status")) {
 //            String statusPedidoContent = parent.get("value").asText();
 //            if (statusPedidoContent == null || statusPedidoContent.isEmpty()) {
@@ -103,9 +101,9 @@ public class UpdateOrderUseCase {
 //                throw new PedidoException(ErrosEnum.PEDIDO_STATUS_NAO_ENCONTRADO);
 //            }
 //        }
-//    }
-//
-//    private void verificarStatusPagamento(JsonNode path, JsonNode parent) {
+    }
+
+    private void verificarStatusPagamento(JsonNode path, JsonNode parent) {
 //        if (path.asText().equalsIgnoreCase("/statusPagamento")) {
 //            String statusPagamentoPedidoContent = parent.get("value").asText();
 //            if (statusPagamentoPedidoContent == null || statusPagamentoPedidoContent.isEmpty()) {
@@ -117,9 +115,9 @@ public class UpdateOrderUseCase {
 //                throw new PedidoException(ErrosEnum.PEDIDO_PAGAMENTO_PAGAMENTO_NAO_ENCONTRADO);
 //            }
 //        }
-//    }
-//
-//    private void validarMudancaDeStatus(Order atual, Order novo) {
+    }
+
+    private void validarMudancaDeStatus(Order atual, Order novo) {
 //        log.info("Validando mudança de status do pedido.");
 //        StatusPedidoEnum statusAtual = StatusPedidoEnum.byId(atual.getStatus().getId());
 //        StatusPedidoEnum statusNovo = StatusPedidoEnum.byId(novo.getStatus().getId());
@@ -133,9 +131,9 @@ public class UpdateOrderUseCase {
 //        );
 //
 //        mudancaStatusPedido.validarMudancaDeStatus(statusAtual, statusNovo);
-//    }
-//
-//    private void validarMudancaDePagamento(Order atual, Order novo) {
+    }
+
+    private void validarMudancaDePagamento(Order atual, Order novo) {
 //        log.info("Validando mudança de status de pagamento do pedido.");
 //        PagamentoPedidoEnum statusPagamentoAtual = PagamentoPedidoEnum.byId(atual.getStatusPagamento().getId());
 //        PagamentoPedidoEnum statusPagamentoNovo = PagamentoPedidoEnum.byId(novo.getStatusPagamento().getId());
@@ -145,5 +143,5 @@ public class UpdateOrderUseCase {
 //        );
 //
 //        mudancaPagamentoPedido.validarMudancaDePagamento(statusPagamentoAtual, statusPagamentoNovo);
-//    }
+    }
 }

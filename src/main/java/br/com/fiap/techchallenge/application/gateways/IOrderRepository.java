@@ -1,6 +1,6 @@
 package br.com.fiap.techchallenge.application.gateways;
 
-import br.com.fiap.techchallenge.domain.entities.pedido.Order;
+import br.com.fiap.techchallenge.domain.entities.order.Order;
 
 import java.util.List;
 

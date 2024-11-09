@@ -1,10 +1,8 @@
 package br.com.fiap.techchallenge.infra.gateways;
 
 import br.com.fiap.techchallenge.application.gateways.IItemRepository;
-import br.com.fiap.techchallenge.domain.entities.pedido.Item;
+import br.com.fiap.techchallenge.domain.entities.order.Item;
 import br.com.fiap.techchallenge.infra.dataproviders.network.item.ItemClient;
-import br.com.fiap.techchallenge.infra.dataproviders.network.item.model.ItemResponse;
-import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 
