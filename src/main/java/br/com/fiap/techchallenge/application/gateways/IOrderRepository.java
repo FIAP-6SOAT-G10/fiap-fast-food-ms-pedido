@@ -6,16 +6,9 @@ import java.util.List;
 
 public interface IOrderRepository {
 
-    List<Order> listOrders();
+    List<Order> list();
 
-    Order findOrderById(String id);
+    Order findById(String id);
 
-    List<Order> findOrderByStatus(String status);
-
-    Order createOrder(Order pedido);
-
-//    Order atualizarStatusDoPedido(Order pedido);
-//
-//    Order atualizarPagamentoDoPedido(Order pedido);
-
+    Order save(Order order);
 }

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 public class Order {
 
     private String id;
@@ -15,9 +14,11 @@ public class Order {
     private LocalDateTime completionDate;
     private LocalDateTime cancellationDate;
     private String paymentStatus;
+    private Customer customer;
     private List<Item> items;
 
-    public Order() {}
+    public Order() {
+    }
 
     public Order(String cpf) {
         this.cpf = cpf;
@@ -35,7 +36,7 @@ public class Order {
         this.amount = amount;
     }
 
-    public Order(String cpf , BigDecimal amount) {
+    public Order(String cpf, BigDecimal amount) {
         this.cpf = cpf;
         this.amount = amount;
     }
@@ -46,20 +47,9 @@ public class Order {
     }
 
     public Order(String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<Item> items) {
-        if (status == null) {
-            throw new IllegalArgumentException("Status é um campo obrigatório no cadastro de novos pedidos.");
-        }
 
         if (amount == null || amount.doubleValue() <= 0) {
             throw new IllegalArgumentException("Valor deve ser preenchido com valores acima de R$ 0,00 no cadastro de novos pedidos.");
-        }
-
-        if (creationDate == null) {
-            throw new IllegalArgumentException("Data de criação é um campo obrigatório no cadastro de novos pedidos.");
-        }
-
-        if (paymentStatus == null) {
-            throw new IllegalArgumentException("Status de pagamento é um campo obrigatório no cadastro de novos pedidos.");
         }
 
         if (items == null) {
@@ -140,16 +130,20 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public List<Item> getItems() {
         return items;
     }
 
     public void setItems(List<Item> items) {
         this.items = items;
-    }
-
-    public void totalizar(BigDecimal subtotal) {
-        this.amount = this.amount.add(subtotal);
     }
 
 }

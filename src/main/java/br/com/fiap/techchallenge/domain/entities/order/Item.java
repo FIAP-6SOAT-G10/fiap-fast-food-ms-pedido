@@ -1,6 +1,5 @@
 package br.com.fiap.techchallenge.domain.entities.order;
 
-
 import java.math.BigDecimal;
 
 public class Item {
@@ -9,7 +8,8 @@ public class Item {
     private BigDecimal price;
     private Long quantity;
 
-    public Item() { }
+    public Item() {
+    }
 
     public Item(Long itemId, BigDecimal price) {
         this.itemId = itemId;

@@ -15,15 +15,10 @@ public class GetOrderUseCase {
     }
 
     public List<Order> listOrders() {
-        return orderRepository.listOrders();
+        return orderRepository.list();
     }
 
     public Order findOrderById(String id) {
-        return orderRepository.findOrderById(id);
+        return orderRepository.findById(id);
     }
-
-    public List<Order> findOrderByStatus(String status) {
-        return orderRepository.findOrderByStatus(status);
-    }
-
 }

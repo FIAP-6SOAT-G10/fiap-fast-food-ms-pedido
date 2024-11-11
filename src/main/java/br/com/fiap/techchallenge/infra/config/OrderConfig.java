@@ -1,24 +1,22 @@
 package br.com.fiap.techchallenge.infra.config;
 
 import br.com.fiap.techchallenge.application.gateways.ICustomerRepository;
+import br.com.fiap.techchallenge.application.gateways.IItemRepository;
 import br.com.fiap.techchallenge.application.gateways.INotificationRepository;
 import br.com.fiap.techchallenge.application.gateways.IOrderRepository;
-import br.com.fiap.techchallenge.application.gateways.IItemRepository;
 import br.com.fiap.techchallenge.application.usecases.order.CreateOrderUseCase;
 import br.com.fiap.techchallenge.application.usecases.order.GetOrderUseCase;
-import br.com.fiap.techchallenge.application.usecases.order.NotifyOrderConsumerUseCase;
 import br.com.fiap.techchallenge.application.usecases.order.UpdateOrderUseCase;
+import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntityRepository;
 import br.com.fiap.techchallenge.infra.dataproviders.network.customer.CustomerClient;
 import br.com.fiap.techchallenge.infra.dataproviders.network.item.ItemClient;
+import br.com.fiap.techchallenge.infra.entrypoints.queue.payment.ResponsePaymentQueueListener;
+import br.com.fiap.techchallenge.infra.entrypoints.queue.production.ResponseProductionQueueListener;
 import br.com.fiap.techchallenge.infra.gateways.CustomerRepository;
+import br.com.fiap.techchallenge.infra.gateways.ItemRepository;
 import br.com.fiap.techchallenge.infra.gateways.NotificationRepository;
 import br.com.fiap.techchallenge.infra.gateways.OrderRepository;
-import br.com.fiap.techchallenge.infra.gateways.ItemRepository;
-import br.com.fiap.techchallenge.infra.mapper.CustomerMapper;
-import br.com.fiap.techchallenge.infra.mapper.ItemMapper;
-import br.com.fiap.techchallenge.infra.mapper.OrderMapper;
-import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntityRepository;
-import br.com.fiap.techchallenge.infra.mapper.PaymentMapper;
+import br.com.fiap.techchallenge.infra.mapper.*;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,63 +25,72 @@ import org.springframework.context.annotation.Configuration;
 public class OrderConfig {
 
     @Bean
-    public IOrderRepository createOrderRepository(OrderEntityRepository orderEntityRepository, OrderMapper orderMapper) {
-        return new OrderRepository(orderEntityRepository, orderMapper);
-    }
-
-    @Bean
-    public IItemRepository createItemRepository(ItemClient itemClient) {
-        return new ItemRepository(itemClient);
-    }
-
-    @Bean
-    public ICustomerRepository createCustomerRepository(CustomerClient customerClient) {
+    public ICustomerRepository buildCustomerRepository(CustomerClient customerClient) {
         return new CustomerRepository(customerClient);
     }
 
     @Bean
-    public INotificationRepository createNotificationRepository(SqsTemplate sqsTemplate) {
-        return new NotificationRepository(sqsTemplate);
+    public IItemRepository buildItemRepository(ItemClient itemClient) {
+        return new ItemRepository(itemClient);
     }
 
     @Bean
-    public CreateOrderUseCase createOrderUseCase(IOrderRepository orderRepository, IItemRepository itemRepository, ICustomerRepository customerRepository) {
-        return new CreateOrderUseCase(orderRepository, itemRepository, customerRepository);
+    public IOrderRepository buildOrderRepository(OrderEntityRepository orderEntityRepository, OrderMapper orderMapper) {
+        return new OrderRepository(orderEntityRepository, orderMapper);
     }
 
     @Bean
-    public GetOrderUseCase createGetOrderUseCase(IOrderRepository orderRepository) {
+    public INotificationRepository buildNotificationRepository(SqsTemplate sqsTemplate, OrderMapper orderMapper) {
+        return new NotificationRepository(sqsTemplate, orderMapper);
+    }
+
+    @Bean
+    public ResponsePaymentQueueListener buildResponsePaymentQueueListener(PaymentMapper paymentMapper, UpdateOrderUseCase updateOrderUseCase) {
+        return new ResponsePaymentQueueListener(paymentMapper, updateOrderUseCase);
+    }
+
+    @Bean
+    public ResponseProductionQueueListener buildResponseProductionQueueListener(ProductionMapper productionMapper, UpdateOrderUseCase updateOrderUseCase) {
+        return new ResponseProductionQueueListener(productionMapper, updateOrderUseCase);
+    }
+
+    @Bean
+    public CreateOrderUseCase buildOrderUseCase(IOrderRepository orderRepository, IItemRepository itemRepository, ICustomerRepository customerRepository, INotificationRepository notificationRepository) {
+        return new CreateOrderUseCase(orderRepository, itemRepository, customerRepository, notificationRepository);
+    }
+
+    @Bean
+    public GetOrderUseCase buildGetOrderUseCase(IOrderRepository orderRepository) {
         return new GetOrderUseCase(orderRepository);
     }
 
     @Bean
-    public UpdateOrderUseCase createUpdateOrderUseCase(IOrderRepository orderRepository) {
+    public UpdateOrderUseCase buildUpdateOrderUseCase(IOrderRepository orderRepository) {
         return new UpdateOrderUseCase(orderRepository);
     }
 
     @Bean
-    public NotifyOrderConsumerUseCase createINotificationRepository(INotificationRepository notificationRepository) {
-        return new NotifyOrderConsumerUseCase(notificationRepository);
-    }
-
-    @Bean
-    public CustomerMapper createCustomerMapper() {
+    public CustomerMapper buildCustomerMapper() {
         return new CustomerMapper();
     }
 
     @Bean
-    public OrderMapper createOrderMapper() {
-        return new OrderMapper();
-    }
-
-    @Bean
-    public ItemMapper createItemMapper() {
+    public ItemMapper buildItemMapper() {
         return new ItemMapper();
     }
 
     @Bean
-    public PaymentMapper createPaymentMapper() {
+    public OrderMapper buildOrderMapper() {
+        return new OrderMapper();
+    }
+
+    @Bean
+    public PaymentMapper buildPaymentMapper() {
         return new PaymentMapper();
     }
 
+    @Bean
+    public ProductionMapper buildProductionMapper() {
+        return new ProductionMapper();
+    }
 }

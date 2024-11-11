@@ -6,9 +6,9 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class PedidoException extends BaseException {
+public class OrderException extends BaseException {
 
-    public PedidoException(ErrosEnum erro, String... violations) {
+    public OrderException(ErrosEnum erro, String... violations) {
         super(erro, violations);
     }
 

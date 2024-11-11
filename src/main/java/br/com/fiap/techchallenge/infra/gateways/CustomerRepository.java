@@ -20,9 +20,7 @@ public class CustomerRepository implements ICustomerRepository {
 //        }
 //        return response.getBody();
 
-//        Long customerId, String name, String cpf
-
-        return new Customer(Long.parseLong("1"), "João da Silva", cpf);
+        return new Customer(Long.parseLong("1"), "João da Silva", cpf, "teste@teste.com");
     }
 
 }

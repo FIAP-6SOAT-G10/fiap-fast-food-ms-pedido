@@ -1,16 +1,25 @@
-package br.com.fiap.techchallenge.domain.entities.order;
+package br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository;
 
-public class Customer {
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
+public class CustomerEntity {
+
+    @Field("customer_id")
     private Long customerId;
+
+    @Field("name")
     private String name;
+
+    @Field("cpf")
     private String cpf;
+
+    @Field("email")
     private String email;
 
-    public Customer() {
-    }
+    public CustomerEntity() { }
 
-    public Customer(Long customerId, String name, String cpf, String email) {
+    public CustomerEntity(Long customerId, String name, String cpf, String email) {
         this.customerId = customerId;
         this.name = name;
         this.cpf = cpf;

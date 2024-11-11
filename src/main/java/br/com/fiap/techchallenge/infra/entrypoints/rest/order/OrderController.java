@@ -48,12 +48,6 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
-    @GetMapping(path = "/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Order>> findByStatus(@PathVariable("status") String status) {
-        log.info("Buscando pedidos pelo status.");
-        return ResponseEntity.ok(getOrderUseCase.findOrderByStatus(status));
-    }
-
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OrderDTO> createOrder(@RequestBody @Valid OrderDTO orderDTO) throws BaseException {
         log.info("Criando um pedido.");
@@ -65,5 +59,4 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-
 }

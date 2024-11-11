@@ -2,7 +2,6 @@ package br.com.fiap.techchallenge.domain.entities.order;
 
 import java.math.BigDecimal;
 
-
 public class Product {
 
     Long id;
@@ -12,7 +11,8 @@ public class Product {
     BigDecimal price;
     String image;
 
-    public Product() {}
+    public Product() {
+    }
 
     public Product(Long id, String name, String description, String category, BigDecimal price, String image) {
         this.id = id;

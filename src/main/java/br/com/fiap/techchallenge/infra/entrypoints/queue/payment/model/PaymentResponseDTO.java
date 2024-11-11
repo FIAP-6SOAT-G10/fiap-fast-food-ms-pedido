@@ -1,9 +1,9 @@
-package br.com.fiap.techchallenge.infra.entrypoints.queue.model;
+package br.com.fiap.techchallenge.infra.entrypoints.queue.payment.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class PaymentRequestDTO {
+public class PaymentResponseDTO {
 
     private String externalOrderId;
     private String internalOrderId;
