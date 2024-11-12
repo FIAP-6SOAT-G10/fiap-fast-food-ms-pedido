@@ -3,14 +3,15 @@ package br.com.fiap.techchallenge.infra.mapper;
 import br.com.fiap.techchallenge.domain.entities.order.Order;
 import br.com.fiap.techchallenge.domain.entities.payment.PaymentRequest;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntity;
-import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderRequestDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderResponseDTO;
 
 import java.util.List;
+import java.util.Objects;
 
 public class OrderMapper {
 
     private final ItemMapper itemMapper = new ItemMapper();
-    private final CustomerMapper customerMapper = new CustomerMapper();
 
     public Order fromEntityToDomain(OrderEntity orderEntity) {
         return new Order(
@@ -25,10 +26,10 @@ public class OrderMapper {
                 itemMapper.fromListEntityToListDomain(orderEntity.getItems()));
     }
 
-    public Order fromDTOToDomain(OrderDTO orderDTO) {
-        Order order = new Order(orderDTO.getCpf());
-        if (!orderDTO.getItems().isEmpty()) {
-            order.setItems(itemMapper.fromListDTOToListDomain(orderDTO.getItems()));
+    public Order fromDTOToDomain(OrderRequestDTO orderRequestDTO) {
+        Order order = new Order(orderRequestDTO.getCpf());
+        if (!orderRequestDTO.getItems().isEmpty()) {
+            order.setItems(itemMapper.fromListDTOToListDomain(orderRequestDTO.getItems()));
         }
         return order;
     }
@@ -44,8 +45,8 @@ public class OrderMapper {
         return orderEntity;
     }
 
-    public OrderDTO fromDomainToDTO(Order order) {
-        return new OrderDTO(
+    public OrderResponseDTO fromDomainToResponseDTO(Order order) {
+        return new OrderResponseDTO(
                 order.getId(),
                 order.getCpf(),
                 order.getStatus(),
@@ -54,7 +55,7 @@ public class OrderMapper {
                 order.getCompletionDate(),
                 order.getCancellationDate(),
                 order.getPaymentStatus(),
-                itemMapper.fromListDomainToListDTO(order.getItems()));
+                itemMapper.fromListDomainToListResponseDTO(order.getItems()));
     }
 
     public List<Order> fromListEntityToListDTO(List<OrderEntity> list) {
@@ -62,9 +63,10 @@ public class OrderMapper {
     }
 
     public PaymentRequest fromDomainToPaymentRequest(Order order) {
+        String email = Objects.isNull(order.getCustomer()) ? null : order.getCustomer().getEmail();
         return new PaymentRequest(
                 order.getId(),
-                order.getCustomer().getEmail(),
+                email,
                 order.getAmount());
     }
 

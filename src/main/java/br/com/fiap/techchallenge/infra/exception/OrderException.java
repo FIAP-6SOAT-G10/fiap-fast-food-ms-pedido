@@ -8,8 +8,7 @@ import lombok.ToString;
 @ToString
 public class OrderException extends BaseException {
 
-    public OrderException(ErrosEnum erro, String... violations) {
-        super(erro, violations);
+    public OrderException(ErrosEnum error, String... violations) {
+        super(error, violations);
     }
-
 }

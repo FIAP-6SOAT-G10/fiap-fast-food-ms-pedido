@@ -1,48 +1,29 @@
 package br.com.fiap.techchallenge.infra.entrypoints.rest.order.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Schema(description = "Objeto que representa um pedido dentro do sistema")
-public class OrderDTO {
+public class OrderResponseDTO {
 
-    @Schema(description = "Campo identificador único de pedido", example = "12345678900")
     private String id;
-
-    @Schema(description = "O cpf do cliente que será criado.", example = "123.123.123-12")
     private String cpf;
-
-    @Schema(description = "Campo que informa o status do pedido", example = "Em Preparo")
     private String status;
-
-    @Schema(description = "Campo que informa o valor totla do pedido", example = "89.25")
     private BigDecimal amount;
-
-    @Schema(description = "Data de criação do pedido", example = "02/05/2024")
     private LocalDateTime creationDate;
-
-    @Schema(description = "Data de finalização do pedido", example = "02/05/2024")
     private LocalDateTime completionDate;
-
-    @Schema(description = "Data de cancelamento do pedido", example = "02/05/2024")
     private LocalDateTime cancellationDate;
-
-    @Schema(description = "Campo que informa o status de pagamento do pedido", example = "Pago")
     private String paymentStatus;
+    private List<ItemResponseDTO> items;
 
-    @Schema(description = "Campo que informa os produtos do pedido")
-    private List<ItemDTO> items;
-
-    public OrderDTO() {
+    public OrderResponseDTO() {
 
     }
 
-    public OrderDTO(String id, String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<ItemDTO> items) {
+    public OrderResponseDTO(String id, String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<ItemResponseDTO> items) {
         this.id = id;
         this.cpf = cpf;
         this.status = status;
@@ -118,11 +99,11 @@ public class OrderDTO {
         this.paymentStatus = paymentStatus;
     }
 
-    public List<ItemDTO> getItems() {
+    public List<ItemResponseDTO> getItems() {
         return items;
     }
 
-    public void setItems(List<ItemDTO> items) {
+    public void setItems(List<ItemResponseDTO> items) {
         this.items = items;
     }
 }

@@ -30,4 +30,4 @@ aws:
   sqs:
     order-production-updates-queue: order-payment-updates-queue
     order-payment-updates-queue: order-payment-updates-queue
-    payment-request-queue: payment-request-queue
+    payment-requests-queue: payment-requests-queue

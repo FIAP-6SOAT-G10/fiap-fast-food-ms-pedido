@@ -18,11 +18,15 @@ import br.com.fiap.techchallenge.infra.gateways.NotificationRepository;
 import br.com.fiap.techchallenge.infra.gateways.OrderRepository;
 import br.com.fiap.techchallenge.infra.mapper.*;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OrderConfig {
+
+    @Value("${aws.sqs.payment-requests-queue}")
+    private String destination;
 
     @Bean
     public ICustomerRepository buildCustomerRepository(CustomerClient customerClient) {
@@ -41,7 +45,7 @@ public class OrderConfig {
 
     @Bean
     public INotificationRepository buildNotificationRepository(SqsTemplate sqsTemplate, OrderMapper orderMapper) {
-        return new NotificationRepository(sqsTemplate, orderMapper);
+        return new NotificationRepository(sqsTemplate, orderMapper, destination);
     }
 
     @Bean

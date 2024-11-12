@@ -29,7 +29,7 @@ public class CreateOrderUseCase {
 
     public Order createOrder(Order order) {
 
-        if (order.getCpf().isEmpty() && order.getItems() == null) {
+        if (order.getItems() == null) {
             throw new OrderException(PEDIDO_SEM_CLIENTE_E_ITEMS);
         }
 

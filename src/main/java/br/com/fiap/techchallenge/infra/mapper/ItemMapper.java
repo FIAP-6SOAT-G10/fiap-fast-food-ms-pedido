@@ -2,17 +2,18 @@ package br.com.fiap.techchallenge.infra.mapper;
 
 import br.com.fiap.techchallenge.domain.entities.order.Item;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.ItemEntity;
-import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ItemDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ItemRequestDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ItemResponseDTO;
 
 import java.util.List;
 
 public class ItemMapper {
 
-    public Item fromDTOToDomain(ItemDTO itemDTO) {
-        return new Item(itemDTO.getId(), itemDTO.getQuantity());
+    public Item fromDTOToDomain(ItemRequestDTO itemRequestDTO) {
+        return new Item(itemRequestDTO.getId(), itemRequestDTO.getQuantity());
     }
 
-    public List<Item> fromListDTOToListDomain(List<ItemDTO> list) {
+    public List<Item> fromListDTOToListDomain(List<ItemRequestDTO> list) {
         return list.stream().map(this::fromDTOToDomain).toList();
     }
 
@@ -24,12 +25,12 @@ public class ItemMapper {
         return list.stream().map(this::fromDomainToEntity).toList();
     }
 
-    public ItemDTO fromDomainToDTO(Item item) {
-        return new ItemDTO(item.getItemId(), item.getPrice(), item.getQuantity());
+    public ItemResponseDTO fromDomainToResponseDTO(Item item) {
+        return new ItemResponseDTO(item.getItemId(), item.getPrice(), item.getQuantity());
     }
 
-    public List<ItemDTO> fromListDomainToListDTO(List<Item> list) {
-        return list.stream().map(this::fromDomainToDTO).toList();
+    public List<ItemResponseDTO> fromListDomainToListResponseDTO(List<Item> list) {
+        return list.stream().map(this::fromDomainToResponseDTO).toList();
     }
 
     public Item fromEntityToDomain(ItemEntity item) {

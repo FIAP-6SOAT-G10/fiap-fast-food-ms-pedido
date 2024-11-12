@@ -3,20 +3,20 @@ package br.com.fiap.techchallenge.infra.entrypoints.rest.order.model;
 
 import java.math.BigDecimal;
 
-public class ItemDTO {
+public class ItemResponseDTO {
 
     private Long id;
     private BigDecimal price;
     private Long quantity;
 
-    public ItemDTO() { }
+    public ItemResponseDTO() { }
 
-    public ItemDTO(Long id, Long quantity) {
+    public ItemResponseDTO(Long id, Long quantity) {
         this.id = id;
         this.quantity = quantity;
     }
 
-    public ItemDTO(Long id, BigDecimal price, Long quantity) {
+    public ItemResponseDTO(Long id, BigDecimal price, Long quantity) {
         this.id = id;
         this.price = price;
         this.quantity = quantity;
