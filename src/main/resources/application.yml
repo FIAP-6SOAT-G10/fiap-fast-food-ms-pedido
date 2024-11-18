@@ -28,6 +28,6 @@ feign:
 
 aws:
   sqs:
-    order-production-updates-queue: order-payment-updates-queue
+    production_order_requests_queue: production_order_requests_queue
     order-payment-updates-queue: order-payment-updates-queue
     payment-requests-queue: payment-requests-queue

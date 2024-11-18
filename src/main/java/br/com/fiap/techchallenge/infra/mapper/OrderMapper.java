@@ -22,7 +22,7 @@ public class OrderMapper {
                 orderEntity.getCreationDate(),
                 orderEntity.getCompletionDate(),
                 orderEntity.getCancellationDate(),
-                orderEntity.getStatus(),
+                orderEntity.getPaymentStatus(),
                 itemMapper.fromListEntityToListDomain(orderEntity.getItems()));
     }
 
@@ -41,6 +41,8 @@ public class OrderMapper {
         orderEntity.setPaymentStatus(order.getPaymentStatus());
         orderEntity.setAmount(order.getAmount());
         orderEntity.setCpf(order.getCpf());
+        orderEntity.setCancellationDate(order.getCancellationDate());
+        orderEntity.setCompletionDate(order.getCompletionDate());
         orderEntity.setItems(itemMapper.fromListDomainToListEntity(order.getItems()));
         return orderEntity;
     }

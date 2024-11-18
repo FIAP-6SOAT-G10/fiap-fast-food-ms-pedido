@@ -7,9 +7,11 @@ import br.com.fiap.techchallenge.application.gateways.IOrderRepository;
 import br.com.fiap.techchallenge.domain.entities.order.Item;
 import br.com.fiap.techchallenge.domain.entities.order.Order;
 import br.com.fiap.techchallenge.infra.exception.OrderException;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 import static br.com.fiap.techchallenge.domain.ErrosEnum.PEDIDO_SEM_CLIENTE_E_ITEMS;
 
@@ -33,7 +35,7 @@ public class CreateOrderUseCase {
             throw new OrderException(PEDIDO_SEM_CLIENTE_E_ITEMS);
         }
 
-        if (!order.getCpf().isEmpty()) {
+        if (StringUtils.hasText(order.getCpf())) {
             order.setCustomer(customerRepository.findByCpf(order.getCpf()));
         }
 

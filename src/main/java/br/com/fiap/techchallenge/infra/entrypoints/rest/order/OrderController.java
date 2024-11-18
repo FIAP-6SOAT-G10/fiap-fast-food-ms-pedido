@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.infra.entrypoints.rest.order;
 
-import br.com.fiap.techchallenge.application.usecases.order.GetOrderUseCase;
 import br.com.fiap.techchallenge.application.usecases.order.CreateOrderUseCase;
+import br.com.fiap.techchallenge.application.usecases.order.GetOrderUseCase;
 import br.com.fiap.techchallenge.domain.entities.order.Order;
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderRequestDTO;
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderResponseDTO;
@@ -60,4 +60,5 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
 }
