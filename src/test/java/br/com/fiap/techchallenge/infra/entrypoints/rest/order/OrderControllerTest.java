@@ -1,4 +1,119 @@
 package br.com.fiap.techchallenge.infra.entrypoints.rest.order;
 
+import br.com.fiap.techchallenge.application.usecases.order.CreateOrderUseCase;
+import br.com.fiap.techchallenge.application.usecases.order.GetOrderUseCase;
+import br.com.fiap.techchallenge.domain.entities.order.Order;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderRequestDTO;
+import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderResponseDTO;
+import br.com.fiap.techchallenge.infra.exception.BaseException;
+import br.com.fiap.techchallenge.infra.mapper.OrderMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
+
 public class OrderControllerTest {
+
+    @InjectMocks
+    private OrderController orderController;
+
+    @Mock
+    private CreateOrderUseCase createOrderUseCase;
+
+    @Mock
+    private GetOrderUseCase getOrderUseCase;
+
+    @Mock
+    private OrderMapper orderMapper;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testGetAllOrders() {
+        List<Order> mockOrders = new ArrayList<>();
+        mockOrders.add(new Order()); // Mock order object
+        when(getOrderUseCase.listOrders()).thenReturn(mockOrders);
+
+        ResponseEntity<List<Order>> response = orderController.getAllOrders();
+
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(mockOrders, response.getBody());
+        verify(getOrderUseCase, times(1)).listOrders();
+    }
+
+    @Test
+    void testFindById_Success() {
+        String orderId = "1";
+        Order mockOrder = new Order();
+        when(getOrderUseCase.findOrderById(orderId)).thenReturn(mockOrder);
+
+        ResponseEntity<Order> response = orderController.findById(orderId);
+
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(mockOrder, response.getBody());
+        verify(getOrderUseCase, times(1)).findOrderById(orderId);
+    }
+
+    @Test
+    void testFindById_NotFound() {
+        String orderId = "1";
+        when(getOrderUseCase.findOrderById(orderId)).thenReturn(null);
+
+        ResponseEntity<Order> response = orderController.findById(orderId);
+
+        assertNotNull(response);
+        assertEquals(404, response.getStatusCodeValue());
+        verify(getOrderUseCase, times(1)).findOrderById(orderId);
+    }
+
+    @Test
+    void testCreateOrder_Success() throws BaseException {
+        OrderRequestDTO requestDTO = new OrderRequestDTO(); // Mock request DTO
+        Order mockOrder = new Order(); // Mock domain object
+        OrderResponseDTO responseDTO = new OrderResponseDTO(); // Mock response DTO
+
+        when(orderMapper.fromDTOToDomain(requestDTO)).thenReturn(mockOrder);
+        when(createOrderUseCase.createOrder(mockOrder)).thenReturn(mockOrder);
+        when(orderMapper.fromDomainToResponseDTO(mockOrder)).thenReturn(responseDTO);
+
+        ResponseEntity<OrderResponseDTO> response = orderController.createOrder(requestDTO);
+
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(responseDTO, response.getBody());
+        verify(orderMapper, times(1)).fromDTOToDomain(requestDTO);
+        verify(createOrderUseCase, times(1)).createOrder(mockOrder);
+        verify(orderMapper, times(1)).fromDomainToResponseDTO(mockOrder);
+    }
+
+    @Test
+    void testCreateOrder_Exception() throws BaseException {
+        OrderRequestDTO requestDTO = new OrderRequestDTO(); // Mock request DTO
+        Order mockOrder = new Order(); // Mock domain object
+
+        when(orderMapper.fromDTOToDomain(requestDTO)).thenReturn(mockOrder);
+        when(createOrderUseCase.createOrder(mockOrder)).thenThrow(new RuntimeException("Error creating order"));
+
+        ResponseEntity<OrderResponseDTO> response = orderController.createOrder(requestDTO);
+
+        assertNotNull(response);
+        assertEquals(400, response.getStatusCodeValue());
+        verify(orderMapper, times(1)).fromDTOToDomain(requestDTO);
+        verify(createOrderUseCase, times(1)).createOrder(mockOrder);
+    }
+
 }
