@@ -74,7 +74,7 @@ public class OrderRepositoryTest {
         OrderEntity orderEntity = new OrderEntity();
         List<OrderEntity> orderEntities = List.of(orderEntity);
         List<Order> orders = List.of(order);
-        when(orderEntityRepository.findAll(Sort.by("creationDate").descending())).thenReturn(orderEntities);
+        when(orderEntityRepository.findAllByOrderByCreationDateDesc()).thenReturn(orderEntities);
         when(orderMapper.fromListEntityToListDTO(orderEntities)).thenReturn(orders);
 
         // Act
@@ -83,7 +83,7 @@ public class OrderRepositoryTest {
         // Assert
         assertNotNull(result);
         assertEquals(orders, result);
-        verify(orderEntityRepository, times(1)).findAll(Sort.by("creationDate").descending());
+        verify(orderEntityRepository, times(1)).findAllByOrderByCreationDateDesc();
         verify(orderMapper, times(1)).fromListEntityToListDTO(orderEntities);
     }
 
