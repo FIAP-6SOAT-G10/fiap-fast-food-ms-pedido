@@ -21,4 +21,12 @@ public class GetOrderUseCase {
     public Order findOrderById(String id) {
         return orderRepository.findById(id);
     }
+
+    public List<Order> findByStatus(String status) {
+        return orderRepository.findByStatus(status);
+    }
+
+    public List<Order> findByPaymentStatus(String paymentStatus) {
+        return orderRepository.findByPaymentStatus(paymentStatus);
+    }
 }

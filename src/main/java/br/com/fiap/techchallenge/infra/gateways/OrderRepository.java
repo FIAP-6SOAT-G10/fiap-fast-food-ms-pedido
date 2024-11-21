@@ -28,8 +28,20 @@ public class OrderRepository implements IOrderRepository {
     }
 
     @Override
+    public List<Order> findByStatus(String status) {
+        List<OrderEntity> listOrder = orderEntityRepository.findByStatusOrderByCreationDateDesc(status);
+        return orderMapper.fromListEntityToListDTO(listOrder);
+    }
+
+    @Override
+    public List<Order> findByPaymentStatus(String paymentStatus) {
+        List<OrderEntity> listOrder = orderEntityRepository.findByPaymentStatusOrderByCreationDateDesc(paymentStatus);
+        return orderMapper.fromListEntityToListDTO(listOrder);
+    }
+
+    @Override
     public List<Order> list() {
-        List<OrderEntity> listOrder = orderEntityRepository.findAll(Sort.by("creationDate").descending());
+        List<OrderEntity> listOrder = orderEntityRepository.findAllByOrderByCreationDateDesc();
         return orderMapper.fromListEntityToListDTO(listOrder);
     }
 

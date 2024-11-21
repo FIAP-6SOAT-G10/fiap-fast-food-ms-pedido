@@ -49,6 +49,18 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
+    @GetMapping(path = "/status/{status}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Order>> listByStatus(@PathVariable("status") String status) {
+        log.info("Buscando pedidos por status.");
+        return ResponseEntity.ok(getOrderUseCase.findByStatus(status));
+    }
+
+    @GetMapping(path = "/payment-status/{paymentStatus}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Order>> listByPaymentStatus(@PathVariable("paymentStatus") String paymentStatus) {
+        log.info("Buscando pedidos por status de pagamento.");
+        return ResponseEntity.ok(getOrderUseCase.findByPaymentStatus(paymentStatus));
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody @Valid OrderRequestDTO orderRequestDTO) throws BaseException {
         log.info("Criando um pedido.");

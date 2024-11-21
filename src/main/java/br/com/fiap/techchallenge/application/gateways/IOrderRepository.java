@@ -10,5 +10,9 @@ public interface IOrderRepository {
 
     Order findById(String id);
 
+    List<Order> findByStatus(String status);
+
+    List<Order> findByPaymentStatus(String paymentStatus);
+
     Order save(Order order);
 }

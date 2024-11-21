@@ -19,7 +19,7 @@ public class ResponsePaymentQueueListener {
         this.updateOrderUseCase = updateOrderUseCase;
     }
 
-    @SqsListener("${aws.sqs.order-payment-updates-queue}")
+//    @SqsListener("${aws.sqs.order-payment-updates-queue}")
     public void listen(PaymentResponseDTO paymentResponseDTO) {
         log.info("Mensagem recebida da fila de pagamento {}", paymentResponseDTO);
         updateOrderUseCase.updatePaymentStatus(
