@@ -7,7 +7,6 @@ import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderRequest
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderResponseDTO;
 import br.com.fiap.techchallenge.infra.exception.BaseException;
 import br.com.fiap.techchallenge.infra.mapper.OrderMapper;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,7 +19,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/orders")
-@Tag(name = "Pedidos", description = "Conjunto de operações que podem ser realizadas no contexto de pedidos.")
 public class OrderController {
 
     private final CreateOrderUseCase createOrderUseCase;
@@ -66,7 +64,7 @@ public class OrderController {
         log.info("Criando um pedido.");
         try {
             Order order = createOrderUseCase.createOrder(orderMapper.fromDTOToDomain(orderRequestDTO));
-            return ResponseEntity.status(HttpStatus.OK).body(orderMapper.fromDomainToResponseDTO(order));
+            return ResponseEntity.status(HttpStatus.CREATED).body(orderMapper.fromDomainToResponseDTO(order));
         } catch (Exception e) {
             log.info(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
