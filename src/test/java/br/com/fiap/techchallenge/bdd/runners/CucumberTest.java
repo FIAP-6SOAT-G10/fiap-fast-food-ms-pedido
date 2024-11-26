@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/java/br/com/fiap/techchallenge/bdd/features",
+        features = "src/test/resources/features",
         glue = {"br.com.fiap.techchallenge.bdd.steps", "br.com.fiap.techchallenge.bdd.config"},
         plugin = {"pretty", "json:target/cucumber.json"}
 )

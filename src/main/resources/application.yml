@@ -5,7 +5,7 @@ spring:
     name: order-microservice
   data:
     mongodb:
-      uri: mongodb://${DB_USERNAME}:${DB_PASSWORD}@localhost:27017/order-microservice
+      uri: mongodb://${DB_USERNAME}:${DB_PASSWORD}@localhost:27017/orders
       database: order-microservice
 
 server:

@@ -93,7 +93,7 @@ public class OrderControllerTest {
         ResponseEntity<OrderResponseDTO> response = orderController.createOrder(requestDTO);
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
+        assertEquals(201, response.getStatusCodeValue());
         assertEquals(responseDTO, response.getBody());
         verify(orderMapper, times(1)).fromDTOToDomain(requestDTO);
         verify(createOrderUseCase, times(1)).createOrder(mockOrder);

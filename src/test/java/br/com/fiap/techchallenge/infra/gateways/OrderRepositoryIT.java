@@ -1,34 +1,28 @@
 package br.com.fiap.techchallenge.infra.gateways;
 
+import br.com.fiap.techchallenge.config.MongoDBConfig;
 import br.com.fiap.techchallenge.domain.entities.order.Item;
 import br.com.fiap.techchallenge.domain.entities.order.Order;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntityRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.containers.MongoDBContainer;
+import org.springframework.context.annotation.Import;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
-import static br.com.fiap.techchallenge.OrderHelper.buildOrder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest
-@ActiveProfiles("test")
+@Import(MongoDBConfig.class)
 public class OrderRepositoryIT {
-
-    static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:5.0");
-
-    static {
-        mongoDBContainer.start();
-        System.setProperty("spring.data.mongodb.uri", mongoDBContainer.getReplicaSetUrl());
-    }
 
     @Autowired
     private OrderEntityRepository orderEntityRepository;
@@ -123,6 +117,17 @@ public class OrderRepositoryIT {
         // Assert
         assertNotNull(list);
         assertThat(list).hasSize(3);
+    }
+
+    private Order buildOrder() {
+        Order order = new Order();
+        order.setCpf(RandomStringUtils.random(11, false, true));
+        order.setAmount(BigDecimal.valueOf(Math.random() * 100).setScale(2, RoundingMode.CEILING));
+        order.setItems(List.of(
+                new Item(1L, BigDecimal.valueOf(Math.random() * 100).setScale(2, RoundingMode.CEILING), 1L),
+                new Item(2L, BigDecimal.valueOf(Math.random() * 100).setScale(2, RoundingMode.CEILING), 1L)
+        ));
+        return order;
     }
 
 }
