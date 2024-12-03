@@ -6,6 +6,8 @@ import br.com.fiap.techchallenge.domain.entities.order.Order;
 import br.com.fiap.techchallenge.domain.entities.payment.PaymentRequest;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.CustomerEntity;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,6 +16,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 public class NotificationMapperTest {
 
     private final NotificationMapper notificationMapper = new NotificationMapper();

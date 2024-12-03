@@ -28,7 +28,7 @@ public class GetOrderUseCaseTest {
     }
 
     @Test
-    void listOrders_shouldReturnListOfOrders() {
+    void listOrdersReturnsListOfOrders() {
         // Arrange
         Order order1 = new Order();
         Order order2 = new Order();
@@ -45,7 +45,7 @@ public class GetOrderUseCaseTest {
     }
 
     @Test
-    void findOrderById_shouldReturnOrder_whenOrderExists() {
+    void findOrderByIdReturnsOrderWhenExists() {
         // Arrange
         String orderId = "123";
         Order expectedOrder = new Order();
@@ -61,7 +61,7 @@ public class GetOrderUseCaseTest {
     }
 
     @Test
-    void findOrderById_shouldReturnNull_whenOrderDoesNotExist() {
+    void findOrderByIdReturnsNullWhenOrderDoesNotExist() {
         // Arrange
         String orderId = "nonexistent-id";
 

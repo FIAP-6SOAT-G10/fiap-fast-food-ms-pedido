@@ -9,13 +9,6 @@ public class ItemResponseDTO {
     private BigDecimal price;
     private Long quantity;
 
-    public ItemResponseDTO() { }
-
-    public ItemResponseDTO(Long id, Long quantity) {
-        this.id = id;
-        this.quantity = quantity;
-    }
-
     public ItemResponseDTO(Long id, BigDecimal price, Long quantity) {
         this.id = id;
         this.price = price;

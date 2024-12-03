@@ -1,11 +1,10 @@
 package br.com.fiap.techchallenge.domain.entities.production.enums;
 
 public enum ProductionStatusEnum {
-    RECEIVED("received"),
-    IN_PREPARATION("in_preparation"),
-    READY("ready"),
-    COMPLETED("completed"),
-    CANCELED("canceled");
+    PENDING("Pending"),
+    IN_PROGRESS("InProgress"),
+    COMPLETED("Completed"),
+    FAILED("Failed");
 
     private final String nominalStatus;
 

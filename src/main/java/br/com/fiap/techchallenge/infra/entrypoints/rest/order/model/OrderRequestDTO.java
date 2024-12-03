@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.infra.entrypoints.rest.order.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,12 +12,8 @@ public class OrderRequestDTO {
     private List<ItemRequestDTO> items;
 
     public OrderRequestDTO() {
-
-    }
-
-    public OrderRequestDTO(String cpf, List<ItemRequestDTO> items) {
-        this.cpf = cpf;
-        this.items = items;
+        this.cpf = null;
+        this.items = new ArrayList<>();
     }
 
     public String getCpf() {

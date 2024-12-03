@@ -43,7 +43,7 @@ public class OrderControllerTest {
     @Test
     void testGetAllOrders() {
         List<Order> mockOrders = new ArrayList<>();
-        mockOrders.add(new Order()); // Mock order object
+        mockOrders.add(new Order());
         when(getOrderUseCase.listOrders()).thenReturn(mockOrders);
 
         ResponseEntity<List<Order>> response = orderController.getAllOrders();
@@ -55,7 +55,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    void testFindById_Success() {
+    void testFindByIdSuccess() {
         String orderId = "1";
         Order mockOrder = new Order();
         when(getOrderUseCase.findOrderById(orderId)).thenReturn(mockOrder);
@@ -69,7 +69,7 @@ public class OrderControllerTest {
     }
 
     @Test
-    void testFindById_NotFound() {
+    void testFindByIdNotFound() {
         String orderId = "1";
         when(getOrderUseCase.findOrderById(orderId)).thenReturn(null);
 
@@ -81,10 +81,10 @@ public class OrderControllerTest {
     }
 
     @Test
-    void testCreateOrder_Success() throws BaseException {
-        OrderRequestDTO requestDTO = new OrderRequestDTO(); // Mock request DTO
+    void testCreateOrderSuccess() throws BaseException {
+        OrderRequestDTO requestDTO = new OrderRequestDTO();
         Order mockOrder = new Order(); // Mock domain object
-        OrderResponseDTO responseDTO = new OrderResponseDTO(); // Mock response DTO
+        OrderResponseDTO responseDTO = new OrderResponseDTO();
 
         when(orderMapper.fromDTOToDomain(requestDTO)).thenReturn(mockOrder);
         when(createOrderUseCase.createOrder(mockOrder)).thenReturn(mockOrder);
@@ -101,9 +101,9 @@ public class OrderControllerTest {
     }
 
     @Test
-    void testCreateOrder_Exception() throws BaseException {
-        OrderRequestDTO requestDTO = new OrderRequestDTO(); // Mock request DTO
-        Order mockOrder = new Order(); // Mock domain object
+    void testCreateOrderException() throws BaseException {
+        OrderRequestDTO requestDTO = new OrderRequestDTO();
+        Order mockOrder = new Order();
 
         when(orderMapper.fromDTOToDomain(requestDTO)).thenReturn(mockOrder);
         when(createOrderUseCase.createOrder(mockOrder)).thenThrow(new RuntimeException("Error creating order"));

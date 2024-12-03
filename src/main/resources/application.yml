@@ -5,8 +5,7 @@ spring:
     name: order-microservice
   data:
     mongodb:
-      uri: mongodb://${DB_USERNAME}:${DB_PASSWORD}@localhost:27017/orders
-      database: order-microservice
+      uri: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/order_db
 
 server:
   servlet:
@@ -24,7 +23,7 @@ feign:
     customer:
       url: http://localhost:8080
     item:
-      url: http://localhost:8080
+      url: http://a12245dc8d223449b9989ebf88d42451-494538644.us-east-1.elb.amazonaws.com
 
 aws:
   sqs:

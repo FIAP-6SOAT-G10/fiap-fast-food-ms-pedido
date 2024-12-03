@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "item-client", url = "${feign.client.item.url}")
 public interface ItemClient {
 
-    @GetMapping(path = "/{itemId}")
+    @GetMapping(path = "/api/produtos/{itemId}")
     ResponseEntity<ItemResponse> findById(@PathVariable("itemId") Long itemId);
 
 }

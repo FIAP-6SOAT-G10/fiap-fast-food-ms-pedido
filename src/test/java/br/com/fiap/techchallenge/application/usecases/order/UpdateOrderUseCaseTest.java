@@ -56,37 +56,25 @@ public class UpdateOrderUseCaseTest {
 
     @Test
     void testUpdateStatusToReceived() {
-        ProductionResponse productionResponse = new ProductionResponse(UUID.randomUUID().toString(), UUID.randomUUID().toString(), LocalDateTime.now(), ProductionStatusEnum.RECEIVED);
+        ProductionResponse productionResponse = new ProductionResponse(UUID.randomUUID().toString(), UUID.randomUUID().toString(), LocalDateTime.now(), ProductionStatusEnum.PENDING);
 
         when(orderRepository.findById(productionResponse.getExternalOrderId())).thenReturn(order);
 
         updateOrderUseCase.updateStatus(productionResponse);
 
-        assertEquals(ProductionStatusEnum.RECEIVED.getNominalStatusStatus(), order.getStatus());
+        assertEquals(ProductionStatusEnum.PENDING.getNominalStatusStatus(), order.getStatus());
         verify(orderRepository).save(order);
     }
 
     @Test
     void testUpdateStatusToInPreparation() {
-        ProductionResponse productionResponse = new ProductionResponse(UUID.randomUUID().toString(), UUID.randomUUID().toString(), LocalDateTime.now(), ProductionStatusEnum.IN_PREPARATION);
+        ProductionResponse productionResponse = new ProductionResponse(UUID.randomUUID().toString(), UUID.randomUUID().toString(), LocalDateTime.now(), ProductionStatusEnum.IN_PROGRESS);
 
         when(orderRepository.findById(productionResponse.getExternalOrderId())).thenReturn(order);
 
         updateOrderUseCase.updateStatus(productionResponse);
 
-        assertEquals(ProductionStatusEnum.IN_PREPARATION.getNominalStatusStatus(), order.getStatus());
-        verify(orderRepository).save(order);
-    }
-
-    @Test
-    void testUpdateStatusToReady() {
-        ProductionResponse productionResponse = new ProductionResponse(UUID.randomUUID().toString(), UUID.randomUUID().toString(), LocalDateTime.now(), ProductionStatusEnum.READY);
-
-        when(orderRepository.findById(productionResponse.getExternalOrderId())).thenReturn(order);
-
-        updateOrderUseCase.updateStatus(productionResponse);
-
-        assertEquals(ProductionStatusEnum.READY.getNominalStatusStatus(), order.getStatus());
+        assertEquals(ProductionStatusEnum.IN_PROGRESS.getNominalStatusStatus(), order.getStatus());
         verify(orderRepository).save(order);
     }
 
@@ -105,13 +93,13 @@ public class UpdateOrderUseCaseTest {
 
     @Test
     void testUpdateStatusToCanceled() {
-        ProductionResponse productionResponse = new ProductionResponse(UUID.randomUUID().toString(), UUID.randomUUID().toString(), LocalDateTime.now(), ProductionStatusEnum.CANCELED);
+        ProductionResponse productionResponse = new ProductionResponse(UUID.randomUUID().toString(), UUID.randomUUID().toString(), LocalDateTime.now(), ProductionStatusEnum.FAILED);
 
         when(orderRepository.findById(productionResponse.getExternalOrderId())).thenReturn(order);
 
         updateOrderUseCase.updateStatus(productionResponse);
 
-        assertEquals(ProductionStatusEnum.CANCELED.getNominalStatusStatus(), order.getStatus());
+        assertEquals(ProductionStatusEnum.FAILED.getNominalStatusStatus(), order.getStatus());
         assertEquals(productionResponse.getDate(), order.getCancellationDate());
         verify(orderRepository).save(order);
     }

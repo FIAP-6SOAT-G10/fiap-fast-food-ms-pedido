@@ -24,7 +24,7 @@ public class UpdateOrderUseCase {
         Order order = orderRepository.findById(productionResponse.getExternalOrderId());
         order.setStatus(productionResponse.getStatus().getNominalStatusStatus());
 
-        if (ProductionStatusEnum.CANCELED == productionResponse.getStatus()) {
+        if (ProductionStatusEnum.FAILED == productionResponse.getStatus()) {
             order.setCancellationDate(productionResponse.getDate());
         }
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "customer-client", url = "${feign.client.customer.url}")
 public interface CustomerClient {
 
-    @GetMapping(path = "/{cpf}")
+    @GetMapping(path = "/api/customers/cpf/{cpf}")
     ResponseEntity<CustomerResponse> findByCpf(@PathVariable("cpf") String cpf);
 
 }

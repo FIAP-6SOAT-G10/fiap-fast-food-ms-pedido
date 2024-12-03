@@ -4,12 +4,15 @@ import br.com.fiap.techchallenge.domain.entities.production.ProductionResponse;
 import br.com.fiap.techchallenge.domain.entities.production.enums.ProductionStatusEnum;
 import br.com.fiap.techchallenge.infra.entrypoints.queue.production.model.ProductionResponseDTO;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 public class ProductionMapperTest {
 
     private final ProductionMapper productionMapper = new ProductionMapper();
@@ -21,7 +24,7 @@ public class ProductionMapperTest {
         productionResponseDTO.setExternalOrderId("123");
         productionResponseDTO.setInternalOrderId("456");
         productionResponseDTO.setDate(LocalDateTime.now());
-        productionResponseDTO.setStatus("RECEIVED");
+        productionResponseDTO.setStatus("PENDING");
 
         // Act
         ProductionResponse productionResponse = productionMapper.fromDataTransferObjetToDomain(productionResponseDTO);
@@ -30,6 +33,6 @@ public class ProductionMapperTest {
         assertThat(productionResponse).isNotNull();
         assertEquals("123", productionResponse.getExternalOrderId());
         assertEquals("456", productionResponse.getInternalOrderId());
-        assertEquals(ProductionStatusEnum.RECEIVED, productionResponse.getStatus());
+        assertEquals(ProductionStatusEnum.PENDING, productionResponse.getStatus());
     }
 }

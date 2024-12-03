@@ -1,32 +1,9 @@
 services:
-  mongo:
-    image: mongo:latest
-    container_name: mongo_container
-    restart: always
-    environment:
-      DB_USERNAME: ${MONGO_USERNAME:-tech}
-      DB_PASSWORD: ${MONGO_PASSWORD:-tech_passwd}
-    ports:
-      - 27017:27017
-    healthcheck:
-      test: [ "CMD", "mongod", "--version" ]
-      interval: 30s
-      retries: 3
-
-  fiapfastfood:
-    container_name: fiap-fast-food
+  orders:
+    container_name: orders
     build:
       context: .
-    image: fiap_fast_food_app/fastfoodapp
+    image: 811851959278.dkr.ecr.us-east-1.amazonaws.com/orders:1.0
+    platform: linux/amd64
     ports:
       - "8080:8080"
-    networks:
-      - fiaptechchallengenetwork
-    depends_on:
-      mongo:
-        condition: service_healthy
-
-networks:
-  fiaptechchallengenetwork:
-    name: fiaptechchallengenetwork
-    driver: bridge

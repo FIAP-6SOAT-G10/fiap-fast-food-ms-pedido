@@ -2,6 +2,7 @@ package br.com.fiap.techchallenge.infra.mapper;
 
 import br.com.fiap.techchallenge.domain.entities.order.Item;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.ItemEntity;
+import br.com.fiap.techchallenge.infra.dataproviders.network.item.model.ItemResponse;
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ItemRequestDTO;
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ItemResponseDTO;
 
@@ -39,6 +40,12 @@ public class ItemMapper {
 
     public List<Item> fromListEntityToListDomain(List<ItemEntity> list) {
         return list.stream().map(this::fromEntityToDomain).toList();
+    }
+
+    public Item fromDataTransferObjetToDomain(ItemResponse itemResponse) {
+        return new Item(
+                itemResponse.getId(),
+                itemResponse.getPreco());
     }
 
 }

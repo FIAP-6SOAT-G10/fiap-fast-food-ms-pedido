@@ -29,13 +29,13 @@ public class OrderConfig {
     private String destination;
 
     @Bean
-    public ICustomerRepository buildCustomerRepository(CustomerClient customerClient) {
-        return new CustomerRepository(customerClient);
+    public ICustomerRepository buildCustomerRepository(CustomerClient customerClient, CustomerMapper customerMapper) {
+        return new CustomerRepository(customerClient, customerMapper);
     }
 
     @Bean
-    public IItemRepository buildItemRepository(ItemClient itemClient) {
-        return new ItemRepository(itemClient);
+    public IItemRepository buildItemRepository(ItemClient itemClient, ItemMapper itemMapper) {
+        return new ItemRepository(itemClient, itemMapper);
     }
 
     @Bean

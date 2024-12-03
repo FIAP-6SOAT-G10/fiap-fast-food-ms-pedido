@@ -4,6 +4,8 @@ import br.com.fiap.techchallenge.domain.entities.order.Item;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.ItemEntity;
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ItemRequestDTO;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -11,6 +13,7 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 public class ItemMapperTest {
 
     private final ItemMapper itemMapper = new ItemMapper();

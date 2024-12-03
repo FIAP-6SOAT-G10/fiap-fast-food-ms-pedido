@@ -1,9 +1,7 @@
 package br.com.fiap.techchallenge.infra.mapper;
 
-import br.com.fiap.techchallenge.domain.entities.payment.PaymentResponse;
 import br.com.fiap.techchallenge.domain.entities.production.ProductionResponse;
 import br.com.fiap.techchallenge.domain.entities.production.enums.ProductionStatusEnum;
-import br.com.fiap.techchallenge.infra.entrypoints.queue.payment.model.PaymentResponseDTO;
 import br.com.fiap.techchallenge.infra.entrypoints.queue.production.model.ProductionResponseDTO;
 
 public class ProductionMapper {
