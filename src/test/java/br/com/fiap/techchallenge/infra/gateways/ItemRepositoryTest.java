@@ -1,6 +1,5 @@
 package br.com.fiap.techchallenge.infra.gateways;
 
-import br.com.fiap.techchallenge.application.gateways.IItemRepository;
 import br.com.fiap.techchallenge.domain.entities.order.Item;
 import br.com.fiap.techchallenge.infra.dataproviders.network.item.ItemClient;
 import br.com.fiap.techchallenge.infra.dataproviders.network.item.model.ItemResponse;
@@ -18,7 +17,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class ItemRepositoryTest {
+class ItemRepositoryTest {
 
     @Mock
     private ItemClient itemClient;

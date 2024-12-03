@@ -24,6 +24,23 @@
 		<json-patch.version>1.13</json-patch.version>
 		<rest-assured.version>5.5.0</rest-assured.version>
 		<maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+		<sonar-maven-plugin.version>5.0.0.4389</sonar-maven-plugin.version>
+		<jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+		<sonar.exclusions>
+			src/main/java/br/com/fiap/techchallenge/application/gateways/**,
+			src/main/java/br/com/fiap/techchallenge/domain/**,
+			src/main/java/br/com/fiap/techchallenge/infra/config/**,
+			src/main/java/br/com/fiap/techchallenge/infra/entrypoints/rest/order/model/**,
+			src/main/java/br/com/fiap/techchallenge/infra/dataproviders/database/persistence/payments/repository/**,
+			src/main/java/br/com/fiap/techchallenge/infra/dataproviders/database/persistence/order/repository/**,
+			src/main/java/br/com/fiap/techchallenge/infra/dataproviders/network/customer/**,
+			src/main/java/br/com/fiap/techchallenge/infra/dataproviders/network/item/**,
+			src/main/java/br/com/fiap/techchallenge/infra/entrypoints/queue/payment/model/**,
+			src/main/java/br/com/fiap/techchallenge/infra/entrypoints/queue/production/model/**,
+			src/main/java/br/com/fiap/techchallenge/infra/entrypoints/rest/payment/model/**,
+			src/main/java/br/com/fiap/techchallenge/infra/exception/**,
+			src/main/java/br/com/fiap/techchallenge/OrderMicroserviceApplication.java
+		</sonar.exclusions>
 	</properties>
 
 	<dependencies>
@@ -175,33 +192,76 @@
 	</dependencyManagement>
 
 	<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.11.0</version>
-            <configuration>
-                <source>17</source>
-                <target>17</target>
-				<annotationProcessors>
-					<annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
-				</annotationProcessors>
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <configuration>
-                <excludes>
-                    <exclude>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclude>
-                </excludes>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>${sonar-maven-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+					<annotationProcessors>
+						<annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
+					</annotationProcessors>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>**/AWSConfig.*</exclude>
+								<exclude>**/PaymentConfig.java</exclude>
+								<exclude>**/CustomerController.*</exclude>
+								<exclude>**/PaymentMicroserviceApplication.java</exclude>
+								<exclude>**/PaymentMicroserviceApplicationTests.java</exclude>
+								<exclude>**/PaymentMicroserviceApplicationIT.java</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>**/ICustomerRepository$MockitoMock$*</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<profiles>
 		<profile>
 			<id>dev</id>

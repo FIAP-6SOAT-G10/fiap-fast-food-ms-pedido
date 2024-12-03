@@ -1,21 +1,16 @@
 package br.com.fiap.techchallenge.infra.mapper;
 
 import br.com.fiap.techchallenge.domain.entities.order.Customer;
-import br.com.fiap.techchallenge.domain.entities.production.ProductionResponse;
-import br.com.fiap.techchallenge.domain.entities.production.enums.ProductionStatusEnum;
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.CustomerEntity;
-import br.com.fiap.techchallenge.infra.entrypoints.queue.production.model.ProductionResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class CustomerMapperTest {
+class CustomerMapperTest {
 
     private final CustomerMapper customerMapper = new CustomerMapper();
 

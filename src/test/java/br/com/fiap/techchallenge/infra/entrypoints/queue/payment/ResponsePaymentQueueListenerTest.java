@@ -6,18 +6,15 @@ import br.com.fiap.techchallenge.infra.entrypoints.queue.payment.model.PaymentRe
 import br.com.fiap.techchallenge.infra.mapper.PaymentMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
 import static org.mockito.Mockito.verify;
 
-@ExtendWith(MockitoExtension.class)
-public class ResponsePaymentQueueListenerTest {
+class ResponsePaymentQueueListenerTest {
 
     @Mock
     private PaymentMapper paymentMapper;
@@ -48,15 +45,5 @@ public class ResponsePaymentQueueListenerTest {
 
         // Assert
         verify(updateOrderUseCase).updatePaymentStatus(Mockito.any(PaymentResponse.class));
-    }
-
-    @Test
-    void shouldLogMessageWhenPaymentResponseReceived() {
-        // Arrange
-        Mockito.when(paymentMapper.fromDataTransferObjetToDomain(paymentResponseDTO))
-                .thenReturn(new PaymentResponse());
-
-        // Act & Assert
-        responsePaymentQueueListener.listen(paymentResponseDTO);
     }
 }

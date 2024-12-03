@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class CustomerRepositoryTest {
+class CustomerRepositoryTest {
 
     @Mock
     private CustomerClient customerClient;

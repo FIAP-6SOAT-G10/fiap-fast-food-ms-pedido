@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class CreateOrderUseCaseTest {
+class CreateOrderUseCaseTest {
 
     @Mock
     private IOrderRepository orderRepository;

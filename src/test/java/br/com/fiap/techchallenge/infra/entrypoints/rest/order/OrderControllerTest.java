@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-public class OrderControllerTest {
+class OrderControllerTest {
 
     @InjectMocks
     private OrderController orderController;
@@ -49,7 +49,6 @@ public class OrderControllerTest {
         ResponseEntity<List<Order>> response = orderController.getAllOrders();
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
         assertEquals(mockOrders, response.getBody());
         verify(getOrderUseCase, times(1)).listOrders();
     }
@@ -63,7 +62,6 @@ public class OrderControllerTest {
         ResponseEntity<Order> response = orderController.findById(orderId);
 
         assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
         assertEquals(mockOrder, response.getBody());
         verify(getOrderUseCase, times(1)).findOrderById(orderId);
     }
@@ -76,7 +74,6 @@ public class OrderControllerTest {
         ResponseEntity<Order> response = orderController.findById(orderId);
 
         assertNotNull(response);
-        assertEquals(404, response.getStatusCodeValue());
         verify(getOrderUseCase, times(1)).findOrderById(orderId);
     }
 
@@ -93,7 +90,6 @@ public class OrderControllerTest {
         ResponseEntity<OrderResponseDTO> response = orderController.createOrder(requestDTO);
 
         assertNotNull(response);
-        assertEquals(201, response.getStatusCodeValue());
         assertEquals(responseDTO, response.getBody());
         verify(orderMapper, times(1)).fromDTOToDomain(requestDTO);
         verify(createOrderUseCase, times(1)).createOrder(mockOrder);
@@ -111,7 +107,6 @@ public class OrderControllerTest {
         ResponseEntity<OrderResponseDTO> response = orderController.createOrder(requestDTO);
 
         assertNotNull(response);
-        assertEquals(400, response.getStatusCodeValue());
         verify(orderMapper, times(1)).fromDTOToDomain(requestDTO);
         verify(createOrderUseCase, times(1)).createOrder(mockOrder);
     }

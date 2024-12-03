@@ -11,7 +11,6 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 
 import static br.com.fiap.techchallenge.domain.ErrosEnum.PEDIDO_SEM_CLIENTE_E_ITEMS;
 

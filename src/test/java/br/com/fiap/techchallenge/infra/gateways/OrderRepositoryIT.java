@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @Import(MongoDBConfig.class)
-public class OrderRepositoryIT {
+class OrderRepositoryIT {
 
     @Autowired
     private OrderEntityRepository orderEntityRepository;

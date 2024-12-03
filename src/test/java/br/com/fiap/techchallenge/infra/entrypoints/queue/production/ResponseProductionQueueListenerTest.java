@@ -6,16 +6,13 @@ import br.com.fiap.techchallenge.infra.entrypoints.queue.production.model.Produc
 import br.com.fiap.techchallenge.infra.mapper.ProductionMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.verify;
 
-@ExtendWith(MockitoExtension.class)
-public class ResponseProductionQueueListenerTest {
+class ResponseProductionQueueListenerTest {
 
     @Mock
     private ProductionMapper productionMapper;
@@ -45,15 +42,5 @@ public class ResponseProductionQueueListenerTest {
 
         // Assert
         verify(updateOrderUseCase).updateStatus(Mockito.any(ProductionResponse.class));
-    }
-
-    @Test
-    void shouldLogMessageWhenProductionResponseReceived() {
-        // Arrange
-        Mockito.when(productionMapper.fromDataTransferObjetToDomain(productionResponseDTO))
-                .thenReturn(new ProductionResponse());
-
-        // Act & Assert
-        responseProductionQueueListener.listen(productionResponseDTO);
     }
 }

@@ -8,7 +8,6 @@ import br.com.fiap.techchallenge.infra.exception.IntegrationException;
 import br.com.fiap.techchallenge.infra.mapper.ItemMapper;
 import org.springframework.http.ResponseEntity;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class ItemRepository implements IItemRepository {

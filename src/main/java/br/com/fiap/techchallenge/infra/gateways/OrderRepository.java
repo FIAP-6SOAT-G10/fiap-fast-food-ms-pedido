@@ -7,7 +7,6 @@ import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.
 import br.com.fiap.techchallenge.infra.dataproviders.database.persistence.order.repository.OrderEntityRepository;
 import br.com.fiap.techchallenge.infra.exception.OrderException;
 import br.com.fiap.techchallenge.infra.mapper.OrderMapper;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
 

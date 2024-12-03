@@ -9,8 +9,6 @@ import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.ItemRequestD
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderRequestDTO;
 import br.com.fiap.techchallenge.infra.entrypoints.rest.order.model.OrderResponseDTO;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,8 +17,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
-public class OrderMapperTest {
+class OrderMapperTest {
 
     private final OrderMapper orderMapper = new OrderMapper();
 

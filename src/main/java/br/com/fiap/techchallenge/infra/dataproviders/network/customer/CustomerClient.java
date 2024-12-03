@@ -1,7 +1,6 @@
 package br.com.fiap.techchallenge.infra.dataproviders.network.customer;
 
 import br.com.fiap.techchallenge.infra.dataproviders.network.customer.model.CustomerResponse;
-import br.com.fiap.techchallenge.infra.dataproviders.network.item.model.ItemResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
