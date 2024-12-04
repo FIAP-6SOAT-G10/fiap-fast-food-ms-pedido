@@ -11,7 +11,7 @@
 	<groupId>br.com.fiap</groupId>
 	<artifactId>orders</artifactId>
 	<version>1.0</version>
-	<name>Tech Challenge Grupo 10</name>
+	<name>Order Microservice</name>
 	<description>Sistema de autoatendimento de fast food, composto por uma série de dispositivos e interfaces que permitem aos clientes selecionar e fazer pedidos sem precisar interagir com um atendente.</description>
 
 	<properties>
