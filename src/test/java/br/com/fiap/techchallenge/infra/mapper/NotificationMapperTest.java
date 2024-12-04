@@ -20,7 +20,16 @@ class NotificationMapperTest {
     @Test
     void shouldConvertDomainToDataTransferObjet() {
         // Arrange
-        Order order = new Order("123", "456", "COMPLETED", BigDecimal.valueOf(200), LocalDateTime.now(), null, null, "PAID", List.of(new Item(), new Item()));
+        Order order = new Order();
+        order.setId("123");
+        order.setCpf("456");
+        order.setStatus("COMPLETED");
+        order.setAmount(BigDecimal.valueOf(200));
+        order.setCreationDate(LocalDateTime.now());
+        order.setCompletionDate(null);
+        order.setCancellationDate(null);
+        order.setPaymentStatus("PAID");
+        order.setItems(List.of(new Item(), new Item()));
         order.setCustomer(new Customer(1L, "Teste", "11111111111", "teste@teste.com"));
 
         // Act

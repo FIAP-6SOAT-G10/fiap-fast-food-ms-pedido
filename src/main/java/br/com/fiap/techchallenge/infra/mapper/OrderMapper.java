@@ -14,16 +14,17 @@ public class OrderMapper {
     private final ItemMapper itemMapper = new ItemMapper();
 
     public Order fromEntityToDomain(OrderEntity orderEntity) {
-        return new Order(
-                orderEntity.getId(),
-                orderEntity.getCpf(),
-                orderEntity.getStatus(),
-                orderEntity.getAmount(),
-                orderEntity.getCreationDate(),
-                orderEntity.getCompletionDate(),
-                orderEntity.getCancellationDate(),
-                orderEntity.getPaymentStatus(),
-                itemMapper.fromListEntityToListDomain(orderEntity.getItems()));
+        Order order = new Order();
+        order.setId(orderEntity.getId());
+        order.setCpf(orderEntity.getCpf());
+        order.setStatus(orderEntity.getStatus());
+        order.setAmount(orderEntity.getAmount());
+        order.setCreationDate(orderEntity.getCreationDate());
+        order.setCompletionDate(orderEntity.getCompletionDate());
+        order.setCancellationDate(orderEntity.getCancellationDate());
+        order.setPaymentStatus(orderEntity.getPaymentStatus());
+        order.setItems(itemMapper.fromListEntityToListDomain(orderEntity.getItems()));
+        return order;
     }
 
     public Order fromDTOToDomain(OrderRequestDTO orderRequestDTO) {
@@ -48,16 +49,17 @@ public class OrderMapper {
     }
 
     public OrderResponseDTO fromDomainToResponseDTO(Order order) {
-        return new OrderResponseDTO(
-                order.getId(),
-                order.getCpf(),
-                order.getStatus(),
-                order.getAmount(),
-                order.getCreationDate(),
-                order.getCompletionDate(),
-                order.getCancellationDate(),
-                order.getPaymentStatus(),
-                itemMapper.fromListDomainToListResponseDTO(order.getItems()));
+        OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
+        orderResponseDTO.setId(order.getId());
+        orderResponseDTO.setCpf(order.getCpf());
+        orderResponseDTO.setStatus(order.getStatus());
+        orderResponseDTO.setAmount(order.getAmount());
+        orderResponseDTO.setCreationDate(order.getCreationDate());
+        orderResponseDTO.setCompletionDate(order.getCompletionDate());
+        orderResponseDTO.setCancellationDate(order.getCancellationDate());
+        orderResponseDTO.setPaymentStatus(order.getPaymentStatus());
+        orderResponseDTO.setItems(itemMapper.fromListDomainToListResponseDTO(order.getItems()));
+        return orderResponseDTO;
     }
 
     public List<Order> fromListEntityToListDTO(List<OrderEntity> list) {

@@ -69,7 +69,16 @@ class OrderMapperTest {
     @Test
     void shouldConvertDomainToEntity() {
         // Arrange
-        Order order = new Order("123", "456", COMPLETED, BigDecimal.valueOf(200), LocalDateTime.now(), null, null, PAID, List.of(new Item(), new Item()));
+        Order order = new Order();
+        order.setId("123");
+        order.setCpf("456");
+        order.setStatus(COMPLETED);
+        order.setAmount(BigDecimal.valueOf(200));
+        order.setCreationDate(LocalDateTime.now());
+        order.setCompletionDate(null);
+        order.setCancellationDate(null);
+        order.setPaymentStatus(PAID);
+        order.setItems(List.of(new Item(), new Item()));
 
         // Act
         OrderEntity orderEntity = orderMapper.fromDomainToEntity(order);
@@ -87,7 +96,16 @@ class OrderMapperTest {
     @Test
     void shouldConvertDomainToResponseDTO() {
         // Arrange
-        Order order = new Order("123", "456", COMPLETED, BigDecimal.valueOf(200), LocalDateTime.now(), null, null, PAID, List.of(new Item(), new Item()));
+        Order order = new Order();
+        order.setId("123");
+        order.setCpf("456");
+        order.setStatus(COMPLETED);
+        order.setAmount(BigDecimal.valueOf(200));
+        order.setCreationDate(LocalDateTime.now());
+        order.setCompletionDate(null);
+        order.setCancellationDate(null);
+        order.setPaymentStatus(PAID);
+        order.setItems(List.of(new Item(), new Item()));
 
         // Act
         OrderResponseDTO responseDTO = orderMapper.fromDomainToResponseDTO(order);
@@ -105,7 +123,16 @@ class OrderMapperTest {
     @Test
     void shouldConvertDomainToPaymentRequest() {
         // Arrange
-        Order order = new Order("123", "456", COMPLETED, BigDecimal.valueOf(200), LocalDateTime.now(), null, null, PAID, List.of(new Item(), new Item()));
+        Order order = new Order();
+        order.setId("123");
+        order.setCpf("456");
+        order.setStatus(COMPLETED);
+        order.setAmount(BigDecimal.valueOf(200));
+        order.setCreationDate(LocalDateTime.now());
+        order.setCompletionDate(null);
+        order.setCancellationDate(null);
+        order.setPaymentStatus(PAID);
+        order.setItems(List.of(new Item(), new Item()));
 
         // Act
         PaymentRequest paymentRequest = orderMapper.fromDomainToPaymentRequest(order);

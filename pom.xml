@@ -245,11 +245,8 @@
 						<configuration>
 							<excludes>
 								<exclude>**/AWSConfig.*</exclude>
-								<exclude>**/PaymentConfig.java</exclude>
-								<exclude>**/CustomerController.*</exclude>
-								<exclude>**/PaymentMicroserviceApplication.java</exclude>
-								<exclude>**/PaymentMicroserviceApplicationTests.java</exclude>
-								<exclude>**/PaymentMicroserviceApplicationIT.java</exclude>
+								<exclude>**/OrderConfig.java</exclude>
+								<exclude>**/OrderMicroserviceApplication.java</exclude>
 							</excludes>
 						</configuration>
 					</execution>

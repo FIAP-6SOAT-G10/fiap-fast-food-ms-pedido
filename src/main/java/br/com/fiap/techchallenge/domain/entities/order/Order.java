@@ -41,31 +41,6 @@ public class Order {
         this.amount = amount;
     }
 
-    public Order(String id, String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<Item> items) {
-        this(cpf, status, amount, creationDate, completionDate, cancellationDate, paymentStatus, items);
-        this.id = id;
-    }
-
-    public Order(String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<Item> items) {
-
-        if (amount == null || amount.doubleValue() <= 0) {
-            throw new IllegalArgumentException("Valor deve ser preenchido com valores acima de R$ 0,00 no cadastro de novos pedidos.");
-        }
-
-        if (items == null) {
-            throw new IllegalArgumentException("Items é um campo obrigatório no cadastro de novos pedidos.");
-        }
-
-        this.cpf = cpf;
-        this.status = status;
-        this.amount = amount;
-        this.creationDate = creationDate;
-        this.completionDate = completionDate;
-        this.cancellationDate = cancellationDate;
-        this.paymentStatus = paymentStatus;
-        this.items = items;
-    }
-
     public String getId() {
         return id;
     }

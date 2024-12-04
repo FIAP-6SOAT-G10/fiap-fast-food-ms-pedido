@@ -20,19 +20,7 @@ public class OrderResponseDTO {
     private List<ItemResponseDTO> items;
 
     public OrderResponseDTO() {
-
-    }
-
-    public OrderResponseDTO(String id, String cpf, String status, BigDecimal amount, LocalDateTime creationDate, LocalDateTime completionDate, LocalDateTime cancellationDate, String paymentStatus, List<ItemResponseDTO> items) {
-        this.id = id;
-        this.cpf = cpf;
-        this.status = status;
-        this.amount = amount;
-        this.creationDate = creationDate;
-        this.completionDate = completionDate;
-        this.cancellationDate = cancellationDate;
-        this.paymentStatus = paymentStatus;
-        this.items = items;
+        //Empty constructor
     }
 
     public String getId() {
