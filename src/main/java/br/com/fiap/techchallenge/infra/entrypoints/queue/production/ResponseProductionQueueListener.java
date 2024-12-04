@@ -19,7 +19,7 @@ public class ResponseProductionQueueListener {
         this.updateOrderUseCase = updateOrderUseCase;
     }
 
-//    @SqsListener("${aws.sqs.production_order_requests_queue}")
+    @SqsListener("${aws.sqs.production_order_requests_queue}")
     public void listen(ProductionResponseDTO productionResponseDTO) {
         log.info("Mensagem recebida da fila de produção {}", productionResponseDTO);
         updateOrderUseCase.updateStatus(
