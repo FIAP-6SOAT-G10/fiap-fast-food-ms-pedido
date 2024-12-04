@@ -2,18 +2,10 @@ spring:
   profiles:
     active: '@activeProfile@'
   application:
-    name: tech-challenge
-  datasource:
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-  jpa:
-    properties:
-      hibernate:
-        default_schema: tech-challenge
-        enable_lazy_load_no_trans: true
-    show-sql: false
-  flyway:
-    schemas: tech-challenge
+    name: order-microservice
+  data:
+    mongodb:
+      uri: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/order_db
 
 server:
   servlet:
@@ -26,6 +18,15 @@ springdoc:
   swagger-ui:
   path: swagger-ui-custom.html
 
-mercadopago:
-  access_token: ${MP_ACCESS_TOKEN:TEST-2194493215547460-072323-e7020fc0d11389fdae3dc86c6b9a1e4f-115466963}
-  notification_url: ${MP_NOTIFICATION_URL:https://614f-2804-7f0-bec0-2fa7-4d18-dc53-6657-d0ff.ngrok-free.app/pedidos/mercadopago/notifications}
+feign:
+  client:
+    customer:
+      url: http://localhost:8080
+    item:
+      url: http://a12245dc8d223449b9989ebf88d42451-494538644.us-east-1.elb.amazonaws.com
+
+aws:
+  sqs:
+    production_order_requests_queue: production_order_requests_queue
+    order-payment-updates-queue: order-payment-updates-queue
+    payment-requests-queue: payment-requests-queue
