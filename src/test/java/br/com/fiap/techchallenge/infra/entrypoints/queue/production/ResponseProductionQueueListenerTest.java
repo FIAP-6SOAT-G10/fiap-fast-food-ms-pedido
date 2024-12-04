@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.verify;
 
@@ -27,6 +28,7 @@ class ResponseProductionQueueListenerTest {
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
         productionResponseDTO = new ProductionResponseDTO();
         productionResponseDTO.setStatus("Completed");
     }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +30,7 @@ class ResponsePaymentQueueListenerTest {
 
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
         paymentResponseDTO = new PaymentResponseDTO();
         paymentResponseDTO.setPaymentStatus("PAID");
         paymentResponseDTO.setPaymentDate(LocalDateTime.now());
