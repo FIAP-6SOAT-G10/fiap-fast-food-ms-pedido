@@ -108,7 +108,7 @@ jobs:
         run: mvn install -DskipTests -q
 
       - name: Start application
-        run: mvn spring-boot:run -D CUSTOMER_HOST="a338d2404287143f3854ba9c6c73072c-1301695279.us-east-1.elb.amazonaws.com" -D PRODUCT_HOST="a338d2404287143f3854ba9c6c73072c-1301695279.us-east-1.elb.amazonaws.com" -Pbdd-test 
+        run: mvn spring-boot:run -D CUSTOMER_HOST=${{ vars.CUSTOMER_HOST }} -D PRODUCT_HOST=${{ vars.PRODUCT_HOST }} -Pbdd-test
 
       - name: Run system tests
         run: make system-test
