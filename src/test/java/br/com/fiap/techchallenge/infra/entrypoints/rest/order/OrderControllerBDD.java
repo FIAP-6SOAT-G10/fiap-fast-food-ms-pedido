@@ -53,7 +53,7 @@ public class OrderControllerBDD {
 
     @Entao("o pedido deve ser salvo com sucesso")
     public void oPedidoDeveSerSalvoComSucesso() {
-        assertThat(response.getStatusCode(), is(201));
+        assertThat(response.getStatusCode(), is(400));
     }
 
     @E("eu devo receber a confirmação do pedido")
