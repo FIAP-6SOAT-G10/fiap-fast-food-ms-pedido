@@ -108,7 +108,7 @@ jobs:
         run: mvn install -DskipTests -q
 
       - name: Start application
-        run: mvn spring-boot:run
+        run: mvn spring-boot:run -Pbdd-test
 
       - name: Run system tests
         run: make system-test
