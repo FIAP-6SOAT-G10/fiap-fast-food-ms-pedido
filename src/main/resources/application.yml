@@ -21,9 +21,9 @@ springdoc:
 feign:
   client:
     customer:
-      url: ${DB_CUSTOMER_HOST}
+      url: ${CUSTOMER_HOST}
     item:
-      url: ${DB_PRODUCT_HOST}
+      url: ${PRODUCT_HOST}
 
 aws:
   sqs:
