@@ -18,7 +18,7 @@ class PaymentMapperTest {
     void shouldConvertDTOToDomain() {
         // Arrange
         PaymentResponseDTO paymentResponseDTO = new PaymentResponseDTO();
-        paymentResponseDTO.setExternalOrderId("123");
+        paymentResponseDTO.setExternalId("123");
         paymentResponseDTO.setInternalOrderId("456");
         paymentResponseDTO.setPayer("teste@teste.com");
         paymentResponseDTO.setPaymentAmount(BigDecimal.valueOf(100));

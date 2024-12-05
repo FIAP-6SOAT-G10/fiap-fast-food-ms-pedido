@@ -7,7 +7,7 @@ public class PaymentMapper {
 
     public PaymentResponse fromDataTransferObjetToDomain(PaymentResponseDTO paymentResponseDTO) {
         return new PaymentResponse(
-                paymentResponseDTO.getExternalOrderId(),
+                paymentResponseDTO.getExternalId(),
                 paymentResponseDTO.getInternalOrderId(),
                 paymentResponseDTO.getPayer(),
                 paymentResponseDTO.getPaymentAmount(),

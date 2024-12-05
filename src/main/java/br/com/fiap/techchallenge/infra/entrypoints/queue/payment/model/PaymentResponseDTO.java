@@ -5,19 +5,19 @@ import java.time.LocalDateTime;
 
 public class PaymentResponseDTO {
 
-    private String externalOrderId;
+    private String externalId;
     private String internalOrderId;
     private String payer;
     private BigDecimal paymentAmount;
     private LocalDateTime paymentDate;
     private String paymentStatus;
 
-    public String getExternalOrderId() {
-        return externalOrderId;
+    public String getExternalId() {
+        return externalId;
     }
 
-    public void setExternalOrderId(String externalOrderId) {
-        this.externalOrderId = externalOrderId;
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
     }
 
     public String getInternalOrderId() {
