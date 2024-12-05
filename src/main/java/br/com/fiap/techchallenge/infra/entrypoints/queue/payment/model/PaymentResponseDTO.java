@@ -59,4 +59,16 @@ public class PaymentResponseDTO {
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
+
+    @Override
+    public String toString() {
+        return "PaymentResponseDTO{" +
+                "externalId='" + externalId + '\'' +
+                ", internalOrderId='" + internalOrderId + '\'' +
+                ", payer='" + payer + '\'' +
+                ", paymentAmount=" + paymentAmount +
+                ", paymentDate=" + paymentDate +
+                ", paymentStatus='" + paymentStatus + '\'' +
+                '}';
+    }
 }
