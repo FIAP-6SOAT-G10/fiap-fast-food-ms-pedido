@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.infra.mapper;
 
 import br.com.fiap.techchallenge.domain.entities.order.Order;
-import br.com.fiap.techchallenge.domain.entities.payment.PaymentRequest;
+import br.com.fiap.techchallenge.domain.entities.pagamento.PaymentRequest;
 
 public class NotificationMapper {
 

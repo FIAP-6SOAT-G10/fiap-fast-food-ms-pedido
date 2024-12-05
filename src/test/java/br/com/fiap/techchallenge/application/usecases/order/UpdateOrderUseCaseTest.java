@@ -2,7 +2,7 @@ package br.com.fiap.techchallenge.application.usecases.order;
 
 import br.com.fiap.techchallenge.application.gateways.IOrderRepository;
 import br.com.fiap.techchallenge.domain.entities.order.Order;
-import br.com.fiap.techchallenge.domain.entities.payment.PaymentResponse;
+import br.com.fiap.techchallenge.domain.entities.pagamento.PaymentResponse;
 import br.com.fiap.techchallenge.domain.entities.production.ProductionResponse;
 import br.com.fiap.techchallenge.domain.entities.production.enums.ProductionStatusEnum;
 import org.junit.jupiter.api.BeforeEach;

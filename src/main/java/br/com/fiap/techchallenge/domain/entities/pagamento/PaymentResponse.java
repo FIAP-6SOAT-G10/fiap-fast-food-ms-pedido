@@ -1,4 +1,4 @@
-package br.com.fiap.techchallenge.domain.entities.payment;
+package br.com.fiap.techchallenge.domain.entities.pagamento;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

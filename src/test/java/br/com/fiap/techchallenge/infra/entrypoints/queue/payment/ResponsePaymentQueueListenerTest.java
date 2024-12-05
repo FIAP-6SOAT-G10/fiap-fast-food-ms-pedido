@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.infra.entrypoints.queue.payment;
 
 import br.com.fiap.techchallenge.application.usecases.order.UpdateOrderUseCase;
-import br.com.fiap.techchallenge.domain.entities.payment.PaymentResponse;
+import br.com.fiap.techchallenge.domain.entities.pagamento.PaymentResponse;
 import br.com.fiap.techchallenge.infra.entrypoints.queue.payment.model.PaymentResponseDTO;
 import br.com.fiap.techchallenge.infra.mapper.PaymentMapper;
 import org.junit.jupiter.api.BeforeEach;

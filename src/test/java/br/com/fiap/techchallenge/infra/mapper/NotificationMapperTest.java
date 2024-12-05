@@ -3,7 +3,7 @@ package br.com.fiap.techchallenge.infra.mapper;
 import br.com.fiap.techchallenge.domain.entities.order.Customer;
 import br.com.fiap.techchallenge.domain.entities.order.Item;
 import br.com.fiap.techchallenge.domain.entities.order.Order;
-import br.com.fiap.techchallenge.domain.entities.payment.PaymentRequest;
+import br.com.fiap.techchallenge.domain.entities.pagamento.PaymentRequest;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

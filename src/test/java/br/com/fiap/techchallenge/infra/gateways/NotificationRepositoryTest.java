@@ -1,7 +1,7 @@
 package br.com.fiap.techchallenge.infra.gateways;
 
 import br.com.fiap.techchallenge.domain.entities.order.Order;
-import br.com.fiap.techchallenge.domain.entities.payment.PaymentRequest;
+import br.com.fiap.techchallenge.domain.entities.pagamento.PaymentRequest;
 import br.com.fiap.techchallenge.infra.mapper.OrderMapper;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.junit.jupiter.api.BeforeEach;
