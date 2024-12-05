@@ -42,7 +42,7 @@ public class OrderControllerBDD {
 
         request = given()
                 .contentType("application/json")
-                .body(orderRequest)
+                .body(orderRequest);
     }
 
     @Quando("eu enviar o pedido")
