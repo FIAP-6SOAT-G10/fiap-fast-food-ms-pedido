@@ -1,4 +1,4 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/order_db
+      uri: mongodb+srv://masteruser:M45t3rp455@fiap-cluster.sfj5d.mongodb.net/order_db
