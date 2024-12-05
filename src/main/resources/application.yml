@@ -5,7 +5,7 @@ spring:
     name: order-microservice
   data:
     mongodb:
-      uri: mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/order_db
+      uri: mongodb+srv://${DB_USERNAME:masteruser}:${DB_PASSWORD:M45t3rp455}@${DB_HOST:fiap-cluster.sfj5d.mongodb.net}/order_db
 
 server:
   servlet:
