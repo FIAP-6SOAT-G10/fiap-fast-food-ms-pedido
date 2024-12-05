@@ -21,9 +21,9 @@ springdoc:
 feign:
   client:
     customer:
-      url: http://localhost:8080
+      url: ${DB_CUSTOMER_HOST}
     item:
-      url: http://a12245dc8d223449b9989ebf88d42451-494538644.us-east-1.elb.amazonaws.com
+      url: ${DB_PRODUCT_HOST}
 
 aws:
   sqs:
