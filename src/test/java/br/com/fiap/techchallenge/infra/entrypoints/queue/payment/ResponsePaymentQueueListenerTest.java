@@ -43,7 +43,7 @@ class ResponsePaymentQueueListenerTest {
                 .thenReturn(new PaymentResponse());
 
         // Act
-        responsePaymentQueueListener.listen(paymentResponseDTO);
+        responsePaymentQueueListener.listen("paymentResponseDTO");
 
         // Assert
         verify(updateOrderUseCase).updatePaymentStatus(Mockito.any(PaymentResponse.class));
