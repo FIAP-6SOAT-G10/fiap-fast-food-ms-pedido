@@ -7,8 +7,6 @@ import io.awspring.cloud.sqs.annotation.SqsListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-
 @Slf4j
 @Component
 public class ResponsePaymentQueueListener {
@@ -22,10 +20,10 @@ public class ResponsePaymentQueueListener {
     }
 
     @SqsListener("${aws.sqs.order-payment-updates-queue}")
-    public void listen(String paymentResponseDTO) {
+    public void listen(PaymentResponseDTO paymentResponseDTO) {
         log.info("Mensagem recebida da fila de pagamento {}", paymentResponseDTO);
-//        updateOrderUseCase.updatePaymentStatus(
-//                paymentMapper.fromDataTransferObjetToDomain(paymentResponseDTO));
+        updateOrderUseCase.updatePaymentStatus(
+                paymentMapper.fromDataTransferObjetToDomain(paymentResponseDTO));
     }
 
 }
