@@ -22,10 +22,10 @@ public class ResponsePaymentQueueListener {
     }
 
     @SqsListener("${aws.sqs.order-payment-updates-queue}")
-    public void listen(PaymentResponseDTO paymentResponseDTO) {
+    public void listen(String paymentResponseDTO) {
         log.info("Mensagem recebida da fila de pagamento {}", paymentResponseDTO);
-        updateOrderUseCase.updatePaymentStatus(
-                paymentMapper.fromDataTransferObjetToDomain(paymentResponseDTO));
+//        updateOrderUseCase.updatePaymentStatus(
+//                paymentMapper.fromDataTransferObjetToDomain(paymentResponseDTO));
     }
 
 }
